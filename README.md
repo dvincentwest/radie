@@ -1,4 +1,4 @@
-![image](dataquick/qt/resources/icons/dataquick.svg){width="48pt"}
+![image](dataquick/qt/resources/icons/dataquick.svg)
 
 DataQuick
 =========
