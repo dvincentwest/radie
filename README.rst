@@ -13,9 +13,6 @@ experimental data. It is not meant for complex plotting or pretty
 pictures, but rather a focus on rapidly converging experimental data
 stored in files into a single place for rapid visualization.
 
-Documentation at `https://dvincentwest.github.io/dataquick-doc
-<https://dvincentwest.github.io/dataquick-doc>`_.
-
 Python Usage
 ------------
 
