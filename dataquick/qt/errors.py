@@ -1,0 +1,2 @@
+class DFTypeError(TypeError):
+    pass

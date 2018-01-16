@@ -1,0 +1,7 @@
+__pycache__/
+.idea
+/sandbox
+/doc/build
+/build
+/dataquick.egg-info
+/dist
