@@ -14,7 +14,7 @@ stored in files into a single place for rapid visualization.
 Python Usage
 ------------
 
-``` {.sourceCode .python}
+```python
 import dataquick as dq
 df = dq.DataQuickFrame(data=[1, 2, 3], name="dqframe")
 print(df.metadata["name"])
@@ -32,7 +32,7 @@ print(vsm_df.metadata["name"])
 Launch DataQuick Gui
 --------------------
 
-``` {.sourceCode .python}
+```
 python -m dataquick.qt.viewer
 ```
 
