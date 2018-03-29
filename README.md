@@ -1,7 +1,6 @@
 ![image](dataquick/qt/resources/icons/dataquick.svg)
 
-DataQuick
-=========
+# DataQuick
 
 as in "Give me my data quick" a python package that sits on top of
 pandas for scientists
@@ -11,8 +10,7 @@ experimental data. It is not meant for complex plotting or pretty
 pictures, but rather a focus on rapidly converging experimental data
 stored in files into a single place for rapid visualization.
 
-Python Usage
-------------
+## Python Usage
 
 ```python
 import dataquick as dq
@@ -29,21 +27,18 @@ vsm_df = dq.load_file("magnetization_v_field.txt")  # VSM measurement
 print(vsm_df.metadata["name"])
 ```
 
-Launch DataQuick Gui
---------------------
+## Launch DataQuick Gui
 
-```
+```python
 python -m dataquick.qt.viewer
 ```
 
-Installation
-------------
+## Installation
 
 Eventually available as a python .whl, for now, clone the directory and
 add dataquick/ to your PythonPath
 
-Highlights
-----------
+## Highlights
 
 -   Core Features:
     -   DataQuickFrame - base class, just a pandas DataFrame with some
@@ -70,8 +65,7 @@ Highlights
 
 \*\* Planned, but not yet implemented
 
-Currently Supported File-types
-------------------------------
+## Currently Supported File-types
 
 -   PowderDiffraction:
     -   Rigaku (.asc, .ras)
@@ -80,8 +74,7 @@ Currently Supported File-types
 -   VSM:
     -   Lakeshore (.dat, .txt (Field v Moment))
 
-Vision
-------
+## Vision
 
 DataQuick is not a replacement for Origin, Igor, QtiPlot or similar gui
 scientific plotting/analysis packages. Instead DataQuick has the

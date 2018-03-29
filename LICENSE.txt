@@ -1,5 +1,8 @@
-Proprietary License
-
 Copyright 3M Company, 2018(c)
-
 This Software is the property of 3M Company.  It may not be used or copied by anyone other than 3M staff.
+
+This software depends upon PyQt
+https://www.riverbankcomputing.com/software/pyqt/intro
+
+As such this software may fall under the GPL without a Commercial License.  It is not currently
+intended for distribution at this time.
