@@ -256,8 +256,8 @@ class ExcelExporter(Exporter):
             x_header = "{}_x".format(name)
             y_header = "{}_y".format(name)
         else:
-            x_header = "{:04d}_x".format(self.data_icol / 2)
-            y_header = "{:04d}_x".format(self.data_icol / 2)
+            x_header = "{:04d}_x".format(int(self.data_icol / 2))
+            y_header = "{:04d}_x".format(int(self.data_icol / 2))
 
         # Write to data worksheet
         x_column, y_column = self.add_xy_to_worksheet(x, y, x_header=x_header, y_header=y_header)
