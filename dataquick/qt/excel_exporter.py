@@ -179,14 +179,16 @@ class ExcelExporter(Exporter):
             self.add_curve_to_chart(item)
 
         # setup axes
-        x_label = self.item.axes['bottom']['item'].label.toPlainText()
-        y_label = self.item.axes['left']['item'].label.toPlainText()
         x_axis = self.chart.Axes().Item(self.enums.xlCategory, self.enums.xlPrimary)
         y_axis = self.chart.Axes().Item(self.enums.xlValue, self.enums.xlPrimary)
         x_axis.HasMajorGridlines = True
         y_axis.HasMajorGridlines = True
-        x_axis.AxisTitle.Text = x_label
-        y_axis.AxisTitle.Text = y_label
+
+        # setup axis labels
+        x_label = self.item.axes['bottom']['item'].label.toPlainText()
+        y_label = self.item.axes['left']['item'].label.toPlainText()
+        x_axis.AxisTitle.Text = x_label if x_label else "x axis"
+        y_axis.AxisTitle.Text = y_label if y_label else "y axis"
         x_axis.AxisTitle.Font.Size = 20
         y_axis.AxisTitle.Font.Size = 20
         x_axis.TickLabels.Font.Size = 18
