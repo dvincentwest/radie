@@ -272,7 +272,6 @@ class DQFListModel(QtCore.QAbstractItemModel):
             ref.dqfDeleted.connect(self.referencesDeleted)
         self.endInsertRows()
         self.itemsAdded.emit(self.dflist[first:])
-        print(self.dflist[first:])
 
     def referencesDeleted(self, ref: DQFReference):
         """This method is called with DQFReference objects are about to be deleted globally"""
@@ -373,7 +372,6 @@ class DQFListView(QtWidgets.QTreeView):
         self.model().deleteSelectedRows(self.selectionModel().selectedRows(0))
 
     def rightClicked(self, pos: QtCore.QPoint):
-        print('right-clicked')
         menu = QtWidgets.QMenu()
 
         selected_rows = self.selectionModel().selectedRows(column=0)
