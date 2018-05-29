@@ -7,7 +7,7 @@ executable = pathlib.Path(sys.executable)
 python = pathlib.Path(os.path.dirname(executable)) / "python.exe"
 pythonw = pathlib.Path(os.path.dirname(executable)) / "pythonw.exe"
 
-this_dir = pathlib.Path(os.path.dirname(__file__))
+this_dir = pathlib.Path(os.path.abspath(os.path.dirname(__file__)))
 icon = this_dir / "dataquick/qt/resources/icons/dataquick.ico"
 usr = pathlib.Path(os.path.expanduser("~"))
 desktop = usr / "Desktop"
