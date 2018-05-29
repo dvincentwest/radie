@@ -1,6 +1,7 @@
 """module to define dqflistview, using the QAbstractListModel"""
 import typing
 
+import numpy as np
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from ..structures import DataQuickFrame
@@ -40,14 +41,14 @@ class DQFItem(object):
     def df(self):
         return self.ref.df
 
-    def x_data(self):
+    def x_data(self) -> np.ndarray:
         data = self.accessors[self.x_accessor]().values
         return data
 
-    def y_data(self):
+    def y_data(self) -> np.ndarray:
         return self.accessors[self.y_accessor]().values
 
-    def z_data(self):
+    def z_data(self) -> np.ndarray:
         return self.accessors[self.z_accessor]().values
 
     def setText(self, value):
@@ -86,7 +87,8 @@ class DQFItemList(list):
         self._itemClass = cls
 
     def append(self, ref):
-        """
+        """append a new DataQuickFrame to the List
+
         Parameters
         ----------
         ref : DQFReference
@@ -279,6 +281,7 @@ class DQFListModel(QtCore.QAbstractItemModel):
             item = self.dflist[i]  # type: DQFItem
             if item.ref is ref:
                 self.removeRow(i)
+                # do not break out of this loop as a plot-list may contain multiple references to the same DQF
         self.itemsDeleted.emit()
 
     def deleteSelectedRows(self, indexes: list):
@@ -408,8 +411,7 @@ class DQFListView(QtWidgets.QTreeView):
 
     def dropEvent(self, event: QtGui.QDropEvent):
         source = event.source()  # type: QtWidgets.QAbstractItemView
-        if source is self:
-            # internal move operation
+        if source is self:  # internal move operation
             super(DQFListView, self).dropEvent(event)
             pos = event.pos()
             dropIndex = source.indexAt(pos)
