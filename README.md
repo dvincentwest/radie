@@ -34,9 +34,12 @@ python -m dataquick.qt.viewer
 ```
 
 ## Installation
-
 Eventually available as a python .whl, for now, clone the directory and
 add dataquick/ to your PythonPath
+
+On Windows, running the `install_windows_shortcut.py` script will install
+shorcuts for for dataquick using the same python executables that are used to
+run the install script.
 
 ## Highlights
 

@@ -7,7 +7,7 @@ from ..structures import DataQuickFrame
 from ..import loaders
 from . import cfg, visualizations, dpi, masterdqftree
 from . import functions as fn
-
+from . import excel_exporter
 
 class SubWindow(QtWidgets.QMdiSubWindow):
     pass
