@@ -48,6 +48,6 @@ def load_txt(fname):
 
 siemensD500_txt_loader = Loader(load_txt, PowderDiffraction, [".txt"], "Siemens D500")
 
-# register_loaders(
-#     siemensD500_txt_loader,
-# )
+register_loaders(
+    siemensD500_txt_loader,
+)
