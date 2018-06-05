@@ -259,8 +259,10 @@ def run(debug=False):
     app.exec_()
     pg.exit()
 
+
 def debug():
     run(True)
+
 
 if __name__ == "__main__":
     run(debug=False)

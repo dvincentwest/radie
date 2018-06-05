@@ -226,7 +226,12 @@ def load_csv(fname, encoding=None):
             if header_line_idx >= 0:
                 header_line = lines[header_line_idx]
                 header_line_vals = header_line.split(dialect.delimiter)
-                if not len(header_line_vals) == chunk_length:
+
+                if len(header_line_vals) == chunk_length + 1:  # assume we have a commented header
+                    explicit_header = header_line_vals[1:]
+                    header_line_idx = None;
+                elif not len(header_line_vals) == chunk_length:
+                    explicit_header = None
                     header_line_idx = None
             else:
                 header_line_idx = None
@@ -236,7 +241,7 @@ def load_csv(fname, encoding=None):
         raise exceptions.LoaderException("datablock not found")
 
     if header_line_idx is None:
-        df = pd.read_csv(data, delimiter=dialect.delimiter,
+        df = pd.read_csv(data, delimiter=dialect.delimiter, names=explicit_header,
                          skiprows=data_block_beginning, header=None, skip_blank_lines=False)
     else:
         df = pd.read_csv(data, delimiter=dialect.delimiter,
