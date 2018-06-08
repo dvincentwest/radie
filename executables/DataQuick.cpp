@@ -41,8 +41,13 @@
 
 wchar_t SWITCH[] = L"-m";
 wchar_t APP[] = L"dataquick.qt.viewer";
+
+#ifdef ROOTRUN
+wchar_t runtime_dir[] = L"";
+#else
 wchar_t runtime_dir[] = L"\\runtime";
-//wchar_t runtime_dir[] = L"";
+#endif
+
 wchar_t applications_dir[] = L"\\apps";
 wchar_t python_dll[] = L"\\python36.dll";
 
