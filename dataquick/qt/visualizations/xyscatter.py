@@ -18,16 +18,40 @@ class DQFItem(plotlist.DQFItem):
         super(DQFItem, self).__init__(ref, item_list, name)
         self.plotDataItem = pg.PlotDataItem()
         self.color = None
+
+        self.legend_name = True
+        self.legend_label = False
+        self.legend_ycol = True
+
         self.plotDataItem.setData(
             x=self.x_data(),
             y=self.y_data(),
             name=self.text
         )
 
+    def setLegend(self, legend_name=None, legend_label=None, legend_ycol=None):
+        legend = list()
+
+        if type(legend_name) is bool:
+            self.legend_name = legend_name
+            if legend_name:
+                legend.append(self.ref.df.metadata["name"])
+        if type(legend_label) is bool:
+            self.legend_label = legend_label
+            if legend_label:
+                legend.append(self.text)
+        if type(legend_ycol) is bool:
+            self.legend_ycol = legend_ycol
+            if legend_ycol:
+                legend.append(str(self.y_accessor))
+
+        self.plotDataItem.setData(name=" - ".join(legend))
+
     def setText(self, value):
         self.text = value
-        self.plotDataItem.setData(name=value)
-        self.plotDataItem.updateItems()
+        if self.legend_label:  # only update if the legend is showing this data
+            self.setLegend()
+            self.plotDataItem.updateItems()
 
 
 class XYScatter(base.Visualization, Ui_XYScatter):
@@ -57,19 +81,40 @@ class XYScatter(base.Visualization, Ui_XYScatter):
 
         self.treeView_datasets.model().itemsAdded.connect(self.addCurves)
         self.treeView_datasets.model().itemAccessorChanged.connect(self.itemDataChanged)
+        self.treeView_datasets.model().itemAccessorChanged.connect(self.legendSelectionChanged)
         self.treeView_datasets.model().itemsDeleted.connect(self.processNewLayout)
         self.treeView_datasets.model().rowsMoved.connect(self.processNewLayout)
         self.treeView_datasets.model().itemToggled.connect(self.itemToggled)
-        self.treeView_datasets.model().itemTextUpdated.connect(self.plotWidget.plotItem.resetLegend)
+        self.treeView_datasets.model().itemTextUpdated.connect(self.legendSelectionChanged)
         self.comboBox_lineStyle.currentIndexChanged.connect(self.setLineStyle)
         self.lineEdit_xlabel.textChanged.connect(self.setXLabel)
         self.lineEdit_ylabel.textChanged.connect(self.setYLabel)
+
+        for checkBox in (self.checkBox_legend_dfname, self.checkBox_legend_label, self.checkBox_legend_ycolumn):
+            checkBox.stateChanged.connect(self.legendSelectionChanged)
+        self.groupBox_Legend.toggled.connect(self.toggleLegend)
 
         self._colors = None
         self.resetColors()
 
         self.alphaChanged = pg.SignalProxy(self.slider_alpha.valueChanged, slot=self.setAlpha, delay=0.05)
         self.slider_alpha.valueChanged.connect(self.label_alphaValue.setNum)
+
+    def legendSelectionChanged(self):
+        for item in self.treeView_datasets.model().dflist:  # type: DQFItem
+            item.setLegend(
+                self.checkBox_legend_dfname.isChecked(),
+                self.checkBox_legend_label.isChecked(),
+                self.checkBox_legend_ycolumn.isChecked(),
+            )
+            item.plotDataItem.updateItems()
+            self.plotWidget.plotItem.resetLegend()
+
+    def toggleLegend(self, on: bool):
+        if on:
+            self.plotWidget.plotItem.resetLegend()
+        else:
+            self.plotWidget.plotItem.removeLegend()
 
     def setAlpha(self):
         if not self.useSymbols():
@@ -137,8 +182,8 @@ class XYScatter(base.Visualization, Ui_XYScatter):
             item.plotDataItem.setData(
                 x=item.x_data(),
                 y=item.y_data(),
-                name=item.text
             )
+            item.setLegend()
         else:
             item.plotDataItem.setData(name=None)
             item.plotDataItem.clear()
@@ -154,6 +199,8 @@ class XYScatter(base.Visualization, Ui_XYScatter):
             for item in items:  # type: DQFItem
                 item.color = self.nextColor()
                 item.plotDataItem.setData(pen=None, symbol='o', symbolPen=item.color, symbolBrush=None)
+                item.setLegend(self.checkBox_legend_dfname.isChecked(), self.checkBox_legend_label.isChecked(),
+                               self.checkBox_legend_ycolumn.isChecked())
                 item.plotDataItem.updateItems()
                 self.plotWidget.plotItem.addItem(item.plotDataItem)
         else:
@@ -162,6 +209,8 @@ class XYScatter(base.Visualization, Ui_XYScatter):
                 item.color = self.nextColor()
                 color = "{:s}{:02x}".format(item.color, alpha)
                 item.plotDataItem.setData(pen=color, symbol=None, symbolPen=None, symbolBrush=None)
+                item.setLegend(self.checkBox_legend_dfname.isChecked(), self.checkBox_legend_label.isChecked(),
+                               self.checkBox_legend_ycolumn.isChecked())
                 item.plotDataItem.updateItems()
                 self.plotWidget.plotItem.addItem(item.plotDataItem)
 

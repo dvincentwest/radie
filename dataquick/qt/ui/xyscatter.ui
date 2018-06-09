@@ -82,6 +82,48 @@
         </layout>
        </item>
        <item>
+        <widget class="QGroupBox" name="groupBox_Legend">
+         <property name="title">
+          <string>Legend</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QCheckBox" name="checkBox_legend_dfname">
+            <property name="text">
+             <string>DF Name</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_legend_label">
+            <property name="text">
+             <string>Item Label</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_legend_ycolumn">
+            <property name="text">
+             <string>Y-Column</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <layout class="QFormLayout" name="formLayout_plotOptions">
          <item row="0" column="0">
           <widget class="QLabel" name="label_xlabel">
@@ -93,15 +135,15 @@
          <item row="0" column="1">
           <widget class="QLineEdit" name="lineEdit_xlabel"/>
          </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_ylabel"/>
-         </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_ylabel">
            <property name="text">
             <string>Y-Label</string>
            </property>
           </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEdit_ylabel"/>
          </item>
         </layout>
        </item>

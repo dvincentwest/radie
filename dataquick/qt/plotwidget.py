@@ -12,6 +12,7 @@ class PlotWidget(pg.PlotWidget):
         # bolt on my PlotItem additions, for some reason all attempts to subclass don't really work
         self.plotItem.setupPlot = types.MethodType(PlotItem.setupPlot, self.plotItem)
         self.plotItem.resetLegend = types.MethodType(PlotItem.resetLegend, self.plotItem)
+        self.plotItem.removeLegend = types.MethodType(PlotItem.removeLegend, self.plotItem)
         self.plotItem.setupPlot()
 
 
@@ -37,6 +38,15 @@ class PlotItem(pg.PlotItem):
         self.getAxis('right').setStyle(showValues=False)
         self.vb.setMouseMode(pg.ViewBox.RectMode)
 
+    def removeLegend(self):
+        """remove the legend"""
+        legend = self.legend
+        try:
+            legend.scene().removeItem(legend)
+            self.legend = None
+        except AttributeError:
+            pass
+
     def resetLegend(self):
         """
         clear out the old legend, add a new one and repopulate
@@ -49,12 +59,7 @@ class PlotItem(pg.PlotItem):
         -------
 
         """
-        legend = self.legend
-        try:
-            legend.scene().removeItem(legend)
-            self.legend = None
-        except AttributeError:
-            pass
+        self.removeLegend()
         self.addLegend()
 
         for item in self.listDataItems():
