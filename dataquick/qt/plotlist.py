@@ -484,7 +484,7 @@ class DQFSeriesListView(DQFListView):
 class DQFXYListView(DQFListView):
     def __init__(self, parent=None):
         super(DQFXYListView, self).__init__(parent)
-        self.setHeaders(["Name", "x-data", "y-data"])
+        self.setHeaders(["Label", "x-data", "y-data"])
         self.setItemDelegateForColumn(1, DQFAccessorDelegate(self))
         self.setItemDelegateForColumn(2, DQFAccessorDelegate(self))
 

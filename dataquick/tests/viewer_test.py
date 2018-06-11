@@ -1,2 +1,2 @@
-from dataquick.qt.viewer import test
-test()
+from dataquick.qt.viewer import debug
+debug()

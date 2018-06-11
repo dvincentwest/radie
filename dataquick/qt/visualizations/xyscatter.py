@@ -51,7 +51,6 @@ class DQFItem(plotlist.DQFItem):
         self.text = value
         if self.legend_label:  # only update if the legend is showing this data
             self.setLegend()
-            self.plotDataItem.updateItems()
 
 
 class XYScatter(base.Visualization, Ui_XYScatter):
@@ -107,7 +106,6 @@ class XYScatter(base.Visualization, Ui_XYScatter):
                 self.checkBox_legend_label.isChecked(),
                 self.checkBox_legend_ycolumn.isChecked(),
             )
-            item.plotDataItem.updateItems()
             self.plotWidget.plotItem.resetLegend()
 
     def toggleLegend(self, on: bool):
@@ -183,7 +181,8 @@ class XYScatter(base.Visualization, Ui_XYScatter):
                 x=item.x_data(),
                 y=item.y_data(),
             )
-            item.setLegend()
+            item.setLegend(self.checkBox_legend_dfname.isChecked(), self.checkBox_legend_label.isChecked(),
+                           self.checkBox_legend_ycolumn.isChecked())
         else:
             item.plotDataItem.setData(name=None)
             item.plotDataItem.clear()
