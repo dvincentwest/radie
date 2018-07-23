@@ -1,3 +1,6 @@
+![image](radie/qt/resources/icons/radie.svg)
+
+
 # Rapid Data Import Environment (radie)
 
 Copyright (&copy;) 3M Company, 2018, 
@@ -115,6 +118,3 @@ following goals:
         datasets and these datasets are literally everywhere. A quick
         button to make an excel file to share with the non-programmers
         out there is critical
-
-<!-- ![image](radie/qt/resources/icons/radie.svg) -->
-

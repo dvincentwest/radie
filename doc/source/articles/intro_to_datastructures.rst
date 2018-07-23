@@ -7,7 +7,7 @@ The pandas python module provides a robust framework for this in the form of a
 DataStructure.  For this module we define a lightly modified DataStructure subclass
 called a :doc:`DataStructure</api/dataframe>`
 
-As a DataStructure is a pandas dataframe you can manipulate it in all the same
+As a DataStructure is a pandas dataframe, you can manipulate it in all the same
 ways that you can manipulate a DataStructure. The essential distinguishing attributes
 of a DataStructure are (Please see the API page for further details):
 
