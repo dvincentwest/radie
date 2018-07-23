@@ -38,13 +38,23 @@ print(vsm_df.metadata["name"])
 python -m radie.qt.viewer
 ```
 
-On Windows, running the `install_windows_shortcut.py` script will install
-shorcuts for for radie using the same python executables that are used to
-run the install script.
+## Requirements
+- numpy
+- pandas
+
+additionally for the gui application:
+- pyqt >= 5.6
+- pyqtgraph >= 0.10
 
 ## Installation
-Eventually available as a python .whl, for now, clone the directory and
-add radie/ to your PythonPath
+
+    pip install radie
+    
+or for the latest updates, clone this repo and add radie/ to your PythonPath
+
+On Windows, running the `install_windows_shortcut.py` script will install
+shorcuts for radie using the same python executables that are used to
+run the install script.
 
 ## Highlights
 
