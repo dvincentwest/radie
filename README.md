@@ -1,5 +1,3 @@
-![image](radie/qt/resources/icons/radie.svg)
-
 # Rapid Data Import Environment (radie)
 
 Copyright (&copy;) 3M Company, 2018, 
@@ -48,7 +46,7 @@ add radie/ to your PythonPath
 ## Highlights
 
 -   Core Features:
-    -   DataStructure - base class, just a pandas DataStructure with some
+    -   DataStructure - base class, just a pandas DataFrame with some
         restrictions, metadata and templates for more specific
         sub-classes
     -   CSV importer that under some structure assumptions attempts to:
@@ -117,4 +115,6 @@ following goals:
         datasets and these datasets are literally everywhere. A quick
         button to make an excel file to share with the non-programmers
         out there is critical
+
+<!-- ![image](radie/qt/resources/icons/radie.svg) -->
 
