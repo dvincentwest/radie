@@ -1,12 +1,12 @@
-import dataquick as dq
+import radie as rd
 import pathlib
 import os
 
 this_dir = pathlib.Path(os.path.abspath(os.path.dirname(__file__)))
-data_file = this_dir / "../dataquick/plugins/examples/data/barium_ferrite.ras"
-data_file = this_dir / "../dataquick/plugins/examples/data/idea_vsm.txt"
+data_file = this_dir / "../radie/plugins/examples/data/barium_ferrite.ras"
+data_file = this_dir / "../radie/plugins/examples/data/idea_vsm.txt"
 
-df = dq.load_file(data_file)
+df = rd.load_file(data_file)
 print(df.head())
 
 # df.savetxt()

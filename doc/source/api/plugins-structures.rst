@@ -1,6 +1,6 @@
 Extended DataStructures
 ==========================
 
-.. automodule:: dataquick.structures
-    :exclude-members: DataQuickFrame
+.. automodule:: radie.structures
+    :exclude-members: DataStructure
     :members:

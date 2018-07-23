@@ -1,7 +1,7 @@
-.. image:: ../../dataquick/qt/resources/icons/dataquick.svg
+.. image:: ../../radie/qt/resources/icons/radie.svg
    :width: 48pt
 
-Documentation for DataQuick
+Documentation for Radie
 =====================================
 
 *\*\*These Documentation pages are a Work in Progress*
@@ -10,7 +10,7 @@ Documentation for DataQuick
    :maxdepth: 1
    :caption: Contents:
 
-   articles/what_is_dataquick
+   articles/what_is_radie
    articles/intro_to_datastructures
    articles/creating_a_new_visualization
    API Reference <api/index>

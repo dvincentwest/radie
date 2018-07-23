@@ -3,5 +3,8 @@ __pycache__/
 /sandbox
 /doc/build
 /build
-/dataquick.egg-info
+/radie.egg-info
 /dist
+/executables/*.exe
+/executables/*.obj
+/executables/*.res

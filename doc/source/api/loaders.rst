@@ -1,12 +1,12 @@
 Loaders Module
 ==============
 
-.. automodule:: dataquick.loaders
+.. automodule:: radie.loaders
     :members:
     :exclude-members: Loader
 
-    .. autoclass:: dataquick.loaders.Loader
+    .. autoclass:: radie.loaders.Loader
         :members:
 
-        .. automethod:: dataquick.loaders.Loader.__init__
+        .. automethod:: radie.loaders.Loader.__init__
 

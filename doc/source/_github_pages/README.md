@@ -1,2 +1,2 @@
-# dataquick-doc
-Sphinx built documentation for dataquick
+# radie-doc
+Sphinx built documentation for radie

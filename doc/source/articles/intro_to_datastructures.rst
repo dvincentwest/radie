@@ -1,15 +1,15 @@
 Introduction to Data Structures
 ===============================
 
-Data structures get at the heart of what dataquick is for.  Many kinds of data
+Data structures get at the heart of what radie is for.  Many kinds of data
 can easily be represented as labeled columns of data, combined with meta-data.
 The pandas python module provides a robust framework for this in the form of a
-DataFrame.  For this module we define a lightly modified DataFrame subclass
-called a :doc:`DataQuickFrame</api/dataquickframe>`
+DataStructure.  For this module we define a lightly modified DataStructure subclass
+called a :doc:`DataStructure</api/dataframe>`
 
-As a DataQuickFrame is a pandas dataframe you can manipulate it in all the same
-ways that you can manipulate a DataFrame. The essential distinguishing attributes
-of a DataQuickFrame are (Please see the API page for further details):
+As a DataStructure is a pandas dataframe you can manipulate it in all the same
+ways that you can manipulate a DataStructure. The essential distinguishing attributes
+of a DataStructure are (Please see the API page for further details):
 
 * `_required_columns` , a class attribute defining data that a particular
   structure must have.  For example, a powder diffraction measurement must have

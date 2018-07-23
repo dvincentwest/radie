@@ -9,7 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=source
 set BUILDDIR=build
-set SPHINXPROJ=DataQuick
+set SPHINXPROJ=Radie
 
 if "%1" == "" goto help
 

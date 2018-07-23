@@ -1,9 +1,9 @@
-What is DataQuick
+What is Radie
 =================
 
 .. toctree::
 
-DataQuick is a python package whose purpose is to make it easy for scientists
+Radie is a python package whose purpose is to make it easy for scientists
 (or anybody) to rapidly import, export, visualize and compare scientific
 datasets.
 
@@ -39,9 +39,9 @@ and bad export features.  The general analysis software packages meanwhile,
 typically have remarkable flexibility.  However, the process of importing and
 making comparison plots can often be quite cumbersome and tedious.
 
-DataQuick is meant to fill this gap in speed, providing a framework for very
+Radie is meant to fill this gap in speed, providing a framework for very
 rapid import and visualization of datafiles.  To make it work, each class of
-scientific data must have a defined structure (see DataQuickFrame).  Then, for
+scientific data must have a defined structure (see DataStructure).  Then, for
 each specific file-type containing a measurement, there must be a defined
 function that loads the datafile into the defined structure.  Furthermore, the
 loader functions are associated with file-extensions, and behave in such a way
@@ -50,9 +50,9 @@ determine the correct loader function to use for the given datafile (see Loader)
 Lastly, there must be a defined visualization which provides appropriate display
 and interaction with the data (see Visualization).
 
-Although it is possible to use dataquick in an interactive coding environment
+Although it is possible to use radie in an interactive coding environment
 such as Jupyter or Spyder, its original motivation was to create a GUI
-application.  This application is the DataQuick Viewer, written in PyQt.  It is
+application.  This application is the Radie Viewer, written in PyQt.  It is
 currently a work in progress, but already provides the basic functionality to
 import data files, visualize them in interactive plot widgets, and quickly
 compare data sets to one another in generic or application specific
@@ -61,7 +61,7 @@ visualizations.
 Extending through Plugins
 -------------------------
 New datastructures, data file types and visualizations can be added by writing
-plugins.  Over time, the goal is for DataQuick to grow supporting many different
+plugins.  Over time, the goal is for Radie to grow supporting many different
 data sets and file types through contributed plugins.  See `writing plugins` and
 `contributing` for more information.
 
@@ -69,7 +69,7 @@ Fast and Easy to Use, Not to Extend
 -----------------------------------
 It should be noted that the point of the general analysis software listed above
 is to make it easy to import data and create complex plots.  However, because it
-is easy, it is slow.  DataQuick takes the opposite approach.  It can be a lot of
+is easy, it is slow.  Radie takes the opposite approach.  It can be a lot of
 work to define a structure, write one or more loader functions for files of that
 structure and then create a complex visualization.  For a one-time use you would
 never do this.  However, by putting the work in at the beginning to create these

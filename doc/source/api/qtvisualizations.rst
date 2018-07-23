@@ -4,5 +4,5 @@ Visualizations
 .. toctree::
     :maxdepth: 2
 
-.. autoclass:: dataquick.qt.visualizations.base.Visualization
+.. autoclass:: radie.qt.visualizations.base.Visualization
     :members:

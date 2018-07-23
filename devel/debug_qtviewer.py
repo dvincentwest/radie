@@ -1,3 +1,3 @@
-import dataquick.qt.viewer as viewer
+import radie.qt.viewer as viewer
 
 viewer.run()

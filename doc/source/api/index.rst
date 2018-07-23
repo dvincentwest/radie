@@ -1,12 +1,12 @@
-DataQuick API Reference
+Radie API Reference
 =======================
 
 .. toctree::
     :maxdepth: 3
 
-    dataquickframe
+    dataframe
     loaders
     qtvisualizations
     plugins
     plotlist
-    masterdqftree
+    masterdftree

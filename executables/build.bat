@@ -1,4 +1,7 @@
-SET APPNAME=DataQuick
+:: This build script uses the MSVC command line tools to build Windows Executables
+:: To launch the radie pyqt datastructures application
+
+SET APPNAME=radie
 SET DISTRO=C:\Coding\Python\Distributions\Python36_x64
 
 :: Bare Python installs for development headers/libraries
@@ -24,8 +27,8 @@ if "%1"=="NOVS" (
 rc.exe %APPNAME%.rc
 @echo on
 
-:: LIB and INCLUDE are necessary for loadtime loading of the Python DLL
-:: if we are doing dynamic linking, we don't need these
+:: LIB and INCLUDE are necessary for load-time loading of the Python DLL
+:: if we are doing run-time loading, we don't need these
 :: set LIB=%PY3_x64%libs;%LIB%
 :: set INCLUDE=%PY3_x64%include;%INCLUDE%
 
@@ -37,8 +40,8 @@ cl /EHsc /DUNICODE /D_UNICODE /DWINGUI %APPNAME%.cpp /Fe%APPNAME%
 cl /EHsc /DUNICODE /D_UNICODE %APPNAME%.cpp /Fe%APPNAME%-Console
 
 :: SOME TEST CODE
-XCOPY %APPNAME%.exe %DISTRO%\%APPNAME%.exe /Y
-XCOPY %APPNAME%-Console.exe %DISTRO%\%APPNAME%-Console.exe /Y
-::
+:: XCOPY %APPNAME%.exe %DISTRO%\%APPNAME%.exe /Y
+:: XCOPY %APPNAME%-Console.exe %DISTRO%\%APPNAME%-Console.exe /Y
+
 :: Set environment variables for 32-bit and build
 :: call VCVARSALL x86

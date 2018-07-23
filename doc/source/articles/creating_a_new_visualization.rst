@@ -1,17 +1,17 @@
 Creating A New Visualization
 ============================
 
-*a quick note*: DQF stands for :doc:`DataQuickFrame </api/dataquickframe>`
+*a quick note*: DF stands for :doc:`DataStructure </api/dataframe>`
 
 This article will demonstrate the creation of a new QWidget based visualization
-for dataquickframes, that can be included into the DataQuick Viewer, written in
+for dataframes, that can be included into the Radie Viewer, written in
 PyQt. It will be a simple version of the included xy scatter plot
-(:code:`dataquick.qt.visualizations.xyscatter`)
+(:code:`radie.qt.visualizations.xyscatter`)
 
 The code for this article can be found as a plugin module that can be used as a
 starting template for creating new visualizations. See
-`dataquick.plugins.visualizations.xyscatter_demo
-<https://github.com/dvincentwest/dataquick/blob/master/dataquick/plugins/visualizations/xyscatter_demo.py>`_.
+`radie.plugins.visualizations.xyscatter_demo
+<https://github.com/dvincentwest/radie/blob/master/radie/plugins/visualizations/xyscatter_demo.py>`_.
 
 It should be noted that a lot of this is GUI programming and can be a real
 grind.  The widget below is quite simple.  The complex functionality provided in
@@ -26,14 +26,14 @@ Schematically our visualization will look something like this:
 .. figure:: /_images/example_plot.svg
     :width: 50%
 
-    figure 1: a basic visualization in DataQuick, consisting of an interactive
+    figure 1: a basic visualization in Radie, consisting of an interactive
     List of datasets and an xy graph of the datasets on the right.
 
 The list on the left is particularly important for the intended workflow.  It
 allows drag and drop control of the datasets, adding and removing datasets to
 the visualization rapidly, in addition to quickly reordering and unchecking the
 datasets in the visualization, and also selecting the columns of data from the
-dataset. DataQuick provides some built-in widgets that can be used for this list
+dataset. Radie provides some built-in widgets that can be used for this list
 of datasets (:doc:`/api/plotlist`)
 
 List of DataItems
@@ -48,11 +48,11 @@ first we setup the imports:
     from PyQt5 import QtCore, QtWidgets
     import pyqtgraph as pg
 
-    from dataquick.qt.visualizations import base, register_visualizations
-    from dataquick.qt import dpi, cfg, colors, plotlist
-    from dataquick.qt.plotlist import DQFXYListView
-    from dataquick.qt.plotwidget import PlotWidget
-    from dataquick.qt import functions as fn
+    from radie.qt.visualizations import base, register_visualizations
+    from radie.qt import dpi, cfg, colors, plotlist
+    from radie.qt.plotlist import DFXYListView
+    from radie.qt.plotwidget import PlotWidget
+    from radie.qt import functions as fn
 
 The plotting library used is pyqtgraph_.  This is not required, but recommended.
 You can of course use matplotlib_, but you should also consider other options
@@ -66,24 +66,24 @@ such as vispy_, or any visualization library that plays nicely with PyQt.
 formatting and conveniences thrown in.
 
 More important are the imports from the :doc:`plotlist module</api/plotlist>`.
-:code:`DQFXYListView` is a subclass of :code:`DQFListView`.  The class is a
-`QTreeView` built to use the custom model :code:`DQFListModel`.  All of these
+:code:`DFXYListView` is a subclass of :code:`DFListView`.  The class is a
+`QTreeView` built to use the custom model :code:`DFListModel`.  All of these
 are used for the list of datasets on the left in figure 1 above.  The code is
 quite complex, and it is highly recommended to use these widgets either directly
 or through subclassing when creating your own visualizations
 
 In order for the list to be fully functional, it needs a container object for
-each item in the list.  A base :code:`DQFItem` class is defined in the
+each item in the list.  A base :code:`DFItem` class is defined in the
 :code:`plotlist` module.  However it must be subclassed in each visualization
 module to accomodate the specific handles needed for each item in the plot.  In
 this case:
 
 .. code:: python
 
-    class DQFItem(plotlist.DQFItem):
+    class DFItem(plotlist.DFItem):
         """an item class with pyqtgraph xy curve handles of type PlotDataItem"""
         def __init__(self, ref, item_list, name=None):
-            super(DQFItem, self).__init__(ref, item_list, name)
+            super(DFItem, self).__init__(ref, item_list, name)
             self.plotDataItem = pg.PlotDataItem()
             self.color = None
             self.plotDataItem.setData(
@@ -97,10 +97,10 @@ this case:
             self.plotDataItem.setData(name=value)
             self.plotDataItem.updateItems()
 
-See the api reference for more detail, but as quick overview, the `DQFItem` is a
+See the api reference for more detail, but as quick overview, the `DFItem` is a
 bookeeping object that keeps track of:
 
-  * the dataquickframe containing the data, and references to active columns
+  * the dataframe containing the data, and references to active columns
   * visualization handles for the data, in this case, :code:`pg.PlotDataItem`
   * visualization states of the items (checked or not, etc.)
 
@@ -118,7 +118,7 @@ of the base visualization.
     class XYScatterDemo(base.Visualization):
         """A generic XY scatter visualization"""
         name = "XY Scatter Demo"
-        description = "Generic visualization of XY curves from DataFrame Series"
+        description = "Generic visualization of XY curves from DataStructure Series"
         _icon_image = os.path.join(cfg.icon_path, "xyscatter.svg")
 
 As per the usual, we modify the relevant class variables, tailored to our
@@ -131,7 +131,7 @@ visualization.  Next we define the constructor:
             self.setupUi()
 
             # required before the list will accept any drops
-            self.treeView_datasets.setItemClass(DQFItem)  
+            self.treeView_datasets.setItemClass(DFItem)
 
             self.treeView_datasets.model().itemsAdded.connect(self.addCurves)
             self.treeView_datasets.model().itemAccessorChanged.connect(
@@ -159,14 +159,14 @@ the rest is just PyQt gui programming.
 
 Second is all the code related to the TreeView, namely
 :code:`self.treeView_datasets`.  The only essential line is the call to
-:code:`DQFTreeView.setItemClass`.  Before the TreeView can accept any
-DataQuickFrames dropped onto it, it must know which object class it is using to
+:code:`DFTreeView.setItemClass`.  Before the TreeView can accept any
+DataFrames dropped onto it, it must know which object class it is using to
 contain the references.  It will not allow any drops until this function has
 been called.
 
 Next is the connecting of all the signals emitted when data in the list are
 changed in some fashion.  The signals are all fairly self-explanatory, and are
-all emitted by the `DQFTreeModel` attached to the TreeView.
+all emitted by the `DFTreeModel` attached to the TreeView.
 
 The remaining code is specific to the elements of this visualization, as is the
 :code:`setupUi` method documented below:
@@ -184,7 +184,7 @@ The remaining code is specific to the elements of this visualization, as is the
             self.layoutWidget = QtWidgets.QWidget(self.splitter)  # left half
             self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
             self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-            self.treeView_datasets = DQFXYListView(self.layoutWidget)
+            self.treeView_datasets = DFXYListView(self.layoutWidget)
             self.verticalLayout.addWidget(self.treeView_datasets)
             self.formLayout_plotOptions = QtWidgets.QFormLayout()
             self.label_xlabel = QtWidgets.QLabel("X-Label", self.layoutWidget)
@@ -209,7 +209,7 @@ The remaining code is specific to the elements of this visualization, as is the
 
 The rest of the methods of the Visualization class relate to the specifics of
 this particular visualization, rather than any general requirements or
-convenience classes of the dataquick viewer, from here on out it is an exercise
+convenience classes of the radie viewer, from here on out it is an exercise
 of gui programming. As long as it stays within the widget and plays nice with
 the rest of the Viewer program it can be as simple or as complex as the designer
 wishes.
@@ -234,7 +234,7 @@ wishes.
         def resetColors(self):
             self._colors = colors.colors()
 
-        def itemDataChanged(self, item: DQFItem):
+        def itemDataChanged(self, item: DFItem):
             if not item.isChecked():
                 return
 
@@ -266,7 +266,7 @@ wishes.
 
             Parameters
             ----------
-            items : list of DQFItem
+            items : list of DFItem
             """
             for item in items:
                 item.color = self.nextColor()
@@ -279,7 +279,7 @@ Wrapping it up
 
 The last remaining item required is registering the visualization class with the
 main module.  This is done by a call to
-:code:`dataquick.qt.visualizations.register_visualizations`
+:code:`radie.qt.visualizations.register_visualizations`
 
 .. code:: python
 
@@ -294,16 +294,16 @@ Testing the widget
 below is some example code that can be used to create this widget as a
 standalone window and add some example dataframes to it.  Note that this code
 will fail if any of the imports are relative.  Note that in the code below we
-do not add DataQuickFrames directly to the Visualizations, but rather first we
-wrap them in a reference object called a :code:`DQFReference`.  See the
-:doc:`relevant api documentation</api/masterdqftree>` for more details.
+do not add DataFrames directly to the Visualizations, but rather first we
+wrap them in a reference object called a :code:`DFReference`.  See the
+:doc:`relevant api documentation</api/masterdftree>` for more details.
 
 .. code:: python
 
     if __name__ == "__main__":
         import sys
-        from dataquick.plugins import examples
-        from dataquick.qt.masterdqftree import DQFReference
+        from radie.plugins import examples
+        from radie.qt.masterdftree import DFReference
         app = fn.instantiate_app()
         fn.reset_excepthook()  # PyQt5 exists silently, sucks for debugging
 
@@ -313,8 +313,8 @@ wrap them in a reference object called a :code:`DQFReference`.  See the
         df2.metadata["name"] = "xrd2"
         df2["intensity"] += 10
         df2["intensity"] *= 1.1
-        ref1 = DQFReference(df1, None)
-        ref2 = DQFReference(df2, None)
+        ref1 = DFReference(df1, None)
+        ref2 = DFReference(df2, None)
 
         plot = XYScatterDemo()
         plot.treeView_datasets.addDataFrames(ref1, ref2)

@@ -1,11 +1,15 @@
-![image](dataquick/qt/resources/icons/dataquick.svg)
+![image](radie/qt/resources/icons/radie.svg)
 
-# DataQuick
+# Rapid Data Import Environment (radie)
 
-as in "Give me my data quick" a python package that sits on top of
-pandas for scientists
+Copyright (&copy;) 3M Company, 2018, 
 
-The point of dataquick is to remove the pain of loading and visualizing
+License: GPL version 2 
+
+Radie is a python package for experimental data primarily using pandas
+for data structures
+
+The point of radie is to remove the pain of loading and visualizing
 experimental data. It is not meant for complex plotting or pretty
 pictures, but rather a focus on rapidly converging experimental data
 stored in files into a single place for rapid visualization.
@@ -13,38 +17,38 @@ stored in files into a single place for rapid visualization.
 ## Python Usage
 
 ```python
-import dataquick as dq
-df = dq.DataQuickFrame(data=[1, 2, 3], name="dqframe")
+import radie as rd
+df = rd.DataStructure(data=[1, 2, 3], name="data frame")
 print(df.metadata["name"])
 print(df.metadata["date"])
 
-csv_df = dq.load_file("my_random_data.csv")  # unspecified csv data
+csv_df = rd.load_file("my_random_data.csv")  # unspecified csv data
 
-pow_df = dq.load_file("powder_diffraction_measurement.ras")  # powder diffraction data
+pow_df = rd.load_file("powder_diffraction_measurement.ras")  # powder diffraction data
 print(pow_df.metadata["name"])
 
-vsm_df = dq.load_file("magnetization_v_field.txt")  # VSM measurement
+vsm_df = rd.load_file("magnetization_v_field.txt")  # VSM measurement
 print(vsm_df.metadata["name"])
 ```
 
-## Launch DataQuick Gui
+## Launch PyQt Gui
 
-```python
-python -m dataquick.qt.viewer
+```shell
+python -m radie.qt.viewer
 ```
 
 On Windows, running the `install_windows_shortcut.py` script will install
-shorcuts for for dataquick using the same python executables that are used to
+shorcuts for for radie using the same python executables that are used to
 run the install script.
 
 ## Installation
 Eventually available as a python .whl, for now, clone the directory and
-add dataquick/ to your PythonPath
+add radie/ to your PythonPath
 
 ## Highlights
 
 -   Core Features:
-    -   DataQuickFrame - base class, just a pandas DataFrame with some
+    -   DataStructure - base class, just a pandas DataStructure with some
         restrictions, metadata and templates for more specific
         sub-classes
     -   CSV importer that under some structure assumptions attempts to:
@@ -55,12 +59,12 @@ add dataquick/ to your PythonPath
     -   Qt-based Gui Viewer with Drag and Drop handling of files and
         data-set comparison
 -   Extensible because (nearly) everything is a plugin
-    -   DataQuickFrame subclasses specify structured data
+    -   DataStructure subclasses specify structured data
         (add-your-own!)
     -   Custom Visualizations of Structured Data, based on whatever fits
         into QMdiSubwindow (I use PyQtGraph)
     -   File-loaders written for each supported file-type, register into
-        the system so that dataquick.load\_file can automatically detect
+        the system so that radie.load\_file can automatically detect
         and load registered file-types
     -   \*\*GUI save files keep all your rapid analysis in one place
         each plugin specifies its own save data in json format and all
@@ -79,15 +83,15 @@ add dataquick/ to your PythonPath
 
 ## Vision
 
-DataQuick is not a replacement for Origin, Igor, QtiPlot or similar gui
-scientific plotting/analysis packages. Instead DataQuick has the
+Radie is not a replacement for Origin, Igor, QtiPlot or similar gui
+scientific plotting/analysis packages. Instead Radie has the
 following goals:
 
 1.  import data files, with drag and drop and automatic file-type
     detection
     -   powder diffraction data
     -   spectrum data
-    -   any data that maps to a Pandas DataFrame
+    -   any data that maps to a Pandas DataStructure
 2.  rapid comparison of datasets into automatically generated
     visualizations with drag and drop
     -   I don't want to plot things, I want to visualize them, the

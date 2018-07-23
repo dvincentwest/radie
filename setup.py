@@ -9,38 +9,39 @@ import datetime
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 d = datetime.date.today()
 version = "{:04d}.{:02d}.{:02d}".format(d.year, d.month, d.day)
-with open("dataquick/__init__.py", "r") as f:
+with open("radie/__init__.py", "r") as f:
     text = f.read()
-with open("dataquick/__init__.py", "w") as f:
+with open("radie/__init__.py", "w") as f:
     f.write(re.sub(".*__version__.*", '__version__ = "{:s}"'.format(version), text))
 
 setup(
-    name='dataquick',
+    name='radie',
     version=version,
-    description='',
+    description='a python application to rapidly import and view experimental data',
     long_description=long_description,
-    url='https://www.github.com/dvincentwest/dataquick',
+    url='https://www.github.com/dvincentwest/radie',
 
     # Author details
-    author='Vince West',
+    author='D. Vincent West',
     author_email='dvincentwest@gmail.com',
 
     # Choose your license
-    license='MIT',
+    license='GPLv2',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
         'Development Status :: 3 - Alpha',
+        'Environment :: Jupyter',
+        'Environment :: Desktop'
         'Intended Audience :: Scientists',
+        'License :: OSI Approved :: GNU General Public License version 2',
+        'Programming Language :: Python',
         'Topic :: Scientific Data :: Visualization and Analysis',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'License :: OSI Approved :: MIT License',
     ],
     keywords='data visualization',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
@@ -48,15 +49,12 @@ setup(
     install_requires=[
         'numpy',
         'pandas',
-        'matplotlib',
-        'pyqtgraph>=0.10',
-        'PyQt5>=5.6',
     ],
     extras_require={},
     package_data={
-        'dataquick.plugins.examples': ['data/*'],
-        'dataquick.qt': ['resources/icons/*.svg'],
-        'dataquick.plugins.visualizations': ['icons/*.svg'],
+        'radie.plugins.examples': ['data/*'],
+        'radie.qt': ['resources/icons/*.svg'],
+        'radie.plugins.visualizations': ['icons/*.svg'],
     },
     data_files=[],
     entry_points={},
