@@ -49,8 +49,12 @@ additionally for the gui application:
 ## Installation
 
     pip install radie
+
+to use the PyQt Gui you must also have PyQt5 and pyqtgraph installed:
+
+    pip install radie PyQt5 pyqtgraph
     
-or for the latest updates, clone this repo and add radie/ to your PythonPath
+for the latest updates, clone this repo and add radie/ to your PythonPath
 
 On Windows, running the `install_windows_shortcut.py` script will install
 shorcuts for radie using the same python executables that are used to
