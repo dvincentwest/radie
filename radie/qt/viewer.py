@@ -7,7 +7,12 @@ from ..structures import DataStructure
 from ..import loaders
 from . import cfg, visualizations, dpi, masterdftree
 from . import functions as fn
-from . import excel_exporter
+
+try:
+    from . import excel_exporter
+except ImportError:
+    pass
+
 
 class SubWindow(QtWidgets.QMdiSubWindow):
     pass
