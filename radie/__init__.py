@@ -3,7 +3,8 @@ from .structures import DataStructure
 from .loaders import load_file, load_csv
 from pandas import *
 
-__version__ = '0.1.1'
+with open('VERSION') as fid:
+    __version__ = fid.read().strip()
 
 plugins.import_structures()
 plugins.import_loaders()

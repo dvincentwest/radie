@@ -12,10 +12,8 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
-with open("radie/__init__.py", "r") as f:
-    lines = f.readlines()
-    version_line = [line for line in lines if line.startswith('__version__')][0]
-    version = version_line.split('=')[1].strip().replace("'", "")
+with open('VERSION') as fid:
+    version = fid.read().strip()
 
 setup(
     name='radie',
