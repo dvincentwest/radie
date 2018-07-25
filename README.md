@@ -12,7 +12,13 @@ experimental data. It is not meant for complex plotting or pretty
 pictures, but rather a focus on rapidly converging experimental data
 stored in files into a single place for rapid visualization.
 
+
+## GUI Demo
+
 ![Alt Text](https://raw.githubusercontent.com/dvincentwest/radie-demos/master/radie-demo.gif)
+
+The screen capture above shows the loading of three different experimental files (Rigaku XRD file, Particle Size Distribution and an IDEA VSM file) simultaneously into the program with drag and drop using the OS file explorer.  From there we initialize new visualizations and then drag the datasets into the visualizations.  Each visualization is tailored to a certain goal, be it the particularities of vieweing XRD files, PSD files, or the generic needs of plotting columnar data in an XY-scatter plot.  The whole process only takes a few seconds and allows the user to rapidly view and display any kind of experimental data, provided an appropriate loader plugin has been written.
+
 
 ## Python Usage
 
@@ -31,11 +37,13 @@ vsm_df = rd.load_file("magnetization_v_field.txt")  # VSM measurement
 print(vsm_df.metadata["name"])
 ```
 
+
 ## Launch PyQt Gui
 
 ```shell
 python -m radie.qt.viewer
 ```
+
 
 ## Requirements
 - numpy
@@ -47,6 +55,7 @@ additionally for the gui application:
 
 optional
 - pywin32 (Windows only)
+
 
 ## Installation
 
@@ -61,6 +70,7 @@ for the latest updates, clone this repo and add radie/ to your PythonPath
 On Windows, running the `install_windows_shortcut.py` script will install
 shorcuts for radie using the same python executables that are used to
 run the install script.  This requires pywin32.
+
 
 ## Highlights
 
@@ -89,6 +99,7 @@ run the install script.  This requires pywin32.
 
 \*\* Planned, but not yet implemented
 
+
 ## Currently Supported File-types
 
 -   PowderDiffraction:
@@ -97,6 +108,7 @@ run the install script.  This requires pywin32.
     -   GSAS (.raw, .gsas, .fxye)
 -   VSM:
     -   Lakeshore (.dat, .txt (Field v Moment))
+
 
 ## Vision
 
