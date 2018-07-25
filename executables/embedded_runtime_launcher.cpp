@@ -32,7 +32,7 @@
 #include <tchar.h>
 // end include stdfax.h
 
-#include "Windows.h"
+//#include "Windows.h"
 #include "Shlwapi.h"
 // #include "Python.h"  // don't need this as we are dynamically loading the library of choice
 #include <string>
@@ -42,15 +42,7 @@
 #pragma comment(lib, "Shlwapi.lib")
 #pragma warning(disable:4996)  // # _CRT_SECURE_NO_DEPRECIATE
 
-wchar_t SWITCH[] = L"-m";
-wchar_t APP[] = L"radie.qt.viewer";
-
-#ifdef ROOTRUN
-wchar_t runtime_dir[] = L"";
-#else
 wchar_t runtime_dir[] = L"\\runtime";
-#endif
-
 wchar_t applications_dir[] = L"\\apps";
 wchar_t python_dll[] = L"\\python36.dll";
 
@@ -75,6 +67,10 @@ int wmain(int argc, wchar_t **argv) {
     
     // determine the path of the executable so we know the absolute path
     // of the python runtime and application directories
+    wchar_t executable_name[MAX_PATH];
+    if (GetModuleFileName(NULL, executable_name, MAX_PATH) == 0)
+        return 1;
+
     wchar_t executable_dir[MAX_PATH];
     if (GetModuleFileName(NULL, executable_dir, MAX_PATH) == 0)
         return 1;
@@ -107,13 +103,12 @@ int wmain(int argc, wchar_t **argv) {
 
     // here we inject the python application launching commands into the arguments array
     int newargc;
-    newargc = argc + 2;
-
+    newargc = argc + 1;
     wchar_t **newargv = new wchar_t*[newargc];
-    newargv[0] = argv[0];
-    newargv[1] = SWITCH;
-    newargv[2] = APP;
 
+    newargv[0] = argv[0];
+    newargv[1] = executable_name;
+//    newargv[1] = argv[0];  // call executable as the python zipapp
     for (int i = 1; i < argc; i++) {
         newargv[i + 2] = argv[i];
     }
@@ -121,9 +116,5 @@ int wmain(int argc, wchar_t **argv) {
     //just a little debug check
     //for (int i=0;i<newargc;i++) {wcout << newargv[i] << endl;}
 
-    //now call Py_Main with our arguments
     return Py_Main(newargc, newargv);
-    //Py_SetPath(python_home.c_str());
-    //return Py_Main(argc, argv);
-
 }
