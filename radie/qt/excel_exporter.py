@@ -16,7 +16,7 @@ def qcolor_to_long(qcolor):
 
 
 def array_to_list(xs):
-    '''recursively convert an array to a list.'''
+    """recursively convert an array to a list."""
     try:
         return [array_to_list(x) for x in xs]
     except TypeError:
@@ -215,11 +215,12 @@ class ExcelExporter(Exporter):
 
         # Set scale
         scale = self.item.viewRange()
-        if False:
-            x_axis.MinimumScale = scale[0][0]
-            x_axis.MaximumScale = scale[0][1]
-            y_axis.MinimumScale = scale[1][0]
-            y_axis.MaximumScale = scale[1][1]
+
+        # if False:
+        #     x_axis.MinimumScale = scale[0][0]
+        #     x_axis.MaximumScale = scale[0][1]
+        #     y_axis.MinimumScale = scale[1][0]
+        #     y_axis.MaximumScale = scale[1][1]
 
         # remove default worksheet
         default_worksheet.Delete()
