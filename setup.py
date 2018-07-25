@@ -1,10 +1,8 @@
 from setuptools import setup, find_packages
 
 # To use a consistent encoding
-import re
 from codecs import open
 from os import path
-import datetime
 
 here = path.abspath(path.dirname(__file__))
 
@@ -12,8 +10,15 @@ here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
-with open('VERSION') as fid:
-    version = fid.read().strip()
+with open('radie/__init__.py') as fid:
+    version_found = False
+    for line in fid:
+        if line.startswith('__version__'):
+            version = line.split('=')[1].strip().replace("'", "")
+            version_found = True
+            break
+    if not version_found:
+        raise Exception('version string not found in __init__.py')
 
 setup(
     name='radie',
@@ -44,6 +49,8 @@ setup(
     install_requires=[
         'numpy',
         'pandas',
+        # 'PyQt5'  # left out because of naming conflicts with conda
+        'pyqtgraph',
     ],
     extras_require={},
     package_data={

@@ -1,6 +1,3 @@
-![image](radie/qt/resources/icons/radie.svg)
-
-
 # Rapid Data Import Environment (radie)
 
 Copyright (&copy;) 3M Company, 2018, 
@@ -46,6 +43,9 @@ additionally for the gui application:
 - pyqt >= 5.6
 - pyqtgraph >= 0.10
 
+optional
+- pywin32 (Windows only)
+
 ## Installation
 
     pip install radie
@@ -58,7 +58,7 @@ for the latest updates, clone this repo and add radie/ to your PythonPath
 
 On Windows, running the `install_windows_shortcut.py` script will install
 shorcuts for radie using the same python executables that are used to
-run the install script.
+run the install script.  This requires pywin32.
 
 ## Highlights
 
