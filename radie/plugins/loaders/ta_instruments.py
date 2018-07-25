@@ -186,7 +186,7 @@ def load_dsc(fname):
     df_dsc : DSC
         DSC DataStructure
     """
-    ta_out = load_ta_instruments(fname, required_kvs={"Instrument":"DSC Q2000"})
+    ta_out = load_ta_instruments(fname, required_kvs={"Instrument": "DSC Q2000"})
     if ta_out is None:
         raise exceptions.IncorrectFileType
 
@@ -221,7 +221,7 @@ def load_tga(fname):
     df_tga : TGA
         TGA DataStructure
     """
-    ta_out = load_ta_instruments(fname, required_kvs={"Instrument":"TGA Q500"})
+    ta_out = load_ta_instruments(fname, required_kvs={"Instrument": "TGA Q500"})
     if ta_out is None:
         raise exceptions.IncorrectFileType
     metadata, results = ta_out
@@ -233,6 +233,7 @@ def load_tga(fname):
                  columns=underscored_columns,
                  **metadata)
     return df_tga
+
 
 TA_Q500_loader = Loader(load_tga, TGA, [".001", ".002", ".003"], "TA Instruments Q500")
 

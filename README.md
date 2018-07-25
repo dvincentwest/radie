@@ -102,12 +102,18 @@ run the install script.  This requires pywin32.
 
 ## Currently Supported File-types
 
--   PowderDiffraction:
+-   Powder Diffraction:
     -   Rigaku (.asc, .ras)
     -   Bruker (.raw (v2))
     -   GSAS (.raw, .gsas, .fxye)
--   VSM:
+-   Vibrating Sample Magnetometer:
     -   Lakeshore (.dat, .txt (Field v Moment))
+-   Particle Size Distribution:
+    -   Horiba LA-960 (.csv)
+-   Thermogravimetric Analysis
+    -   TA Instruments Q500 (.001, .002, .003)
+-   Differential Scanning Calorimetry (DSC)
+    -   TA Instruments Q2000 (.001, .002, .003)
 
 
 ## Vision
@@ -145,4 +151,4 @@ following goals:
     -   Excel is the most wide-spread format for sharing/visualizing 1-D
         datasets and these datasets are literally everywhere. A quick
         button to make an excel file to share with the non-programmers
-        out there is critical
+        out there is critical (currently Windows only)

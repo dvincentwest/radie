@@ -1,4 +1,4 @@
-"""define loader objects that return PowderDiffraction Data Structures"""
+"""Loader for csv output of Horiba LA-960 particle size analyzer"""
 import numpy as np
 import re
 
