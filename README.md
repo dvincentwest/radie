@@ -12,6 +12,8 @@ experimental data. It is not meant for complex plotting or pretty
 pictures, but rather a focus on rapidly converging experimental data
 stored in files into a single place for rapid visualization.
 
+![Alt Text](https://raw.githubusercontent.com/dvincentwest/radie-demos/master/radie-demo.gif)
+
 ## Python Usage
 
 ```python
