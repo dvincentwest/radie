@@ -200,12 +200,12 @@ class StructuredDataFrame(pandas.DataFrame):
             return self.columns.get_loc(self._z)
 
     @classmethod
-    def required_metadata(self):
-        return set(self._required_metadata)
+    def required_metadata(cls):
+        return set(cls._required_metadata)
 
     @classmethod
-    def required_columns(self):
-        return set(self._required_columns)
+    def required_columns(cls):
+        return set(cls._required_columns)
 
     @property
     def uuid(self):
