@@ -2,13 +2,13 @@
 import os
 
 from PyQt5 import QtWidgets, QtGui
-from ...structures.datastructure import DataStructure
+from ...structures.structureddataframe import StructuredDataFrame
 
 
 class Visualization(QtWidgets.QWidget):
     """base class for QtWidget visualizations
 
-    Very minimal skeleton defining the expected behavior a QWidget used to visualize a DataStructure.  Almost
+    Very minimal skeleton defining the expected behavior a QWidget used to visualize a StructuredDataFrame.  Almost
     anything that will fit into a QtWidget is acceptable as a Visualization.  Most of the internals are defined in
     subclass.
 
@@ -18,8 +18,8 @@ class Visualization(QtWidgets.QWidget):
         *cls var*, The name of the visualization to be displayed in menus
     description : str
         *cls var*, a short one line description
-    supported_classes : list of Type(DataStructure)
-        *cls var*, provide an easy mechanism to validate if the DataStructure objects in the visualization
+    supported_classes : list of Type(StructuredDataFrame)
+        *cls var*, provide an easy mechanism to validate if the StructuredDataFrame objects in the visualization
         will play nice with the visualization
 
     Notes
@@ -39,7 +39,7 @@ class Visualization(QtWidgets.QWidget):
     _icon = None  # type: QtGui.QIcon
 
     supportedClasses = (  # must be a tuple
-        DataStructure,
+        StructuredDataFrame,
     )
 
     @classmethod

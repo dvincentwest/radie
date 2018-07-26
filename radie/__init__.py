@@ -1,5 +1,5 @@
 from . import structures, loaders, plugins
-from .structures import DataStructure
+from .structures import StructuredDataFrame
 from .loaders import load_file, load_csv
 
 __version__ = '0.1.2'

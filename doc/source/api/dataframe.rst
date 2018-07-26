@@ -1,9 +1,9 @@
-DataStructure
+StructuredDataFrame
 ==============
 
-.. autoclass:: radie.structures.datastructure.DataStructure
+.. autoclass:: radie.structures.datastructure.StructuredDataFrame
     :members:
     :show-inheritance:
 
-    .. automethod:: radie.structures.datastructure.DataStructure.__init__
+    .. automethod:: radie.structures.datastructure.StructuredDataFrame.__init__
 

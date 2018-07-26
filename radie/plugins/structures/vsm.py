@@ -1,8 +1,8 @@
 from collections import OrderedDict
-from radie.structures import DataStructure, register_data_structures
+from radie.structures import StructuredDataFrame, register_data_structures
 
 
-class VSM(DataStructure):
+class VSM(StructuredDataFrame):
     """
     A class for Vibrating Sample Magnetometer measurements.  Although these measurements can get quite complicated,
     measurements versus angle, the typical measurement is a measurement of applied field (in Gauss) versus magnetic
@@ -11,7 +11,7 @@ class VSM(DataStructure):
 
     label = "VSM"
 
-    _required_metadata = DataStructure._required_metadata.copy()
+    _required_metadata = StructuredDataFrame._required_metadata.copy()
     _required_metadata.update({
         "mass": 1,
         "density": 1

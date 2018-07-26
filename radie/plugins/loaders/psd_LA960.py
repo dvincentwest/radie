@@ -1,4 +1,4 @@
-"""define loader objects that return PowderDiffraction Data Structures"""
+"""Loader for csv output of Horiba LA-960 particle size analyzer"""
 import numpy as np
 import re
 
@@ -138,7 +138,7 @@ def load_csv(fname):
     Returns
     -------
     df_psd : PSD
-        PSD DataStructure
+        PSD StructuredDataFrame
     """
 
     starting_lines = [

@@ -11,26 +11,26 @@ import pandas as pd
 
 from radie import structures
 from . import exceptions
-from .structures.datastructure import DataStructure
+from .structures.structureddataframe import StructuredDataFrame
 
 loaders = dict()
 
 
 class Loader(object):
-    """object used to map file-extensions to functions that load DataStructure subclasses
+    """object used to map file-extensions to functions that load StructuredDataFrame subclasses
 
     The loader object is a place holder that connects a list of file-extensions to a a function that will read those
-    files and DataStructure subclass that the function will return.  Its main purpose is for book-keeping to allow
+    files and StructuredDataFrame subclass that the function will return.  Its main purpose is for book-keeping to allow
     automatic operations involving reading data files.  One key principle of operation is that the function will check
     and validate if the file is of the correct type and has all of the required necessary information.  If not, the
     function should raise a LoaderException, otherwise, the function returns an instance (or a list of
-    instances) of the `DataStructure` subclass specified in the `cls` attribute
+    instances) of the `StructuredDataFrame` subclass specified in the `cls` attribute
 
     Attributes
     ----------
 
-    cls: typing.Type(DataStructure)
-        the `DataStructure` sub-class that the loader function will load
+    cls: typing.Type(StructuredDataFrame)
+        the `StructuredDataFrame` sub-class that the loader function will load
     extensions : list, str
         a string or list of strings specifying the file types
     label : str
@@ -45,9 +45,9 @@ class Loader(object):
         Parameters
         ----------
         loader_function : function
-            the function to load the DataStructure from a file, expects filename argument
-        cls: typing.Type(DataStructure)
-            the `DataStructure` sub-class that the loader function will load
+            the function to load the StructuredDataFrame from a file, expects filename argument
+        cls: typing.Type(StructuredDataFrame)
+            the `StructuredDataFrame` sub-class that the loader function will load
         extensions : list, str
             a string or list of strings specifying the file types
         label : str
@@ -78,7 +78,7 @@ class Loader(object):
 
         Returns
         -------
-        DataStructure
+        StructuredDataFrame
 
         """
         return self._load(filename)
@@ -109,7 +109,7 @@ def register_loaders(*loader_objects):
 
 def from_clipboard(*args, **kwargs):
     df = pd.read_clipboard(*args, **kwargs)
-    return DataStructure(df)
+    return StructuredDataFrame(df)
 
 
 def load_csv(fname, encoding=None):
@@ -140,10 +140,10 @@ def load_csv(fname, encoding=None):
 
     Returns
     -------
-    DataStructure
+    StructuredDataFrame
 
     """
-    name = "DataStructure"
+    name = "StructuredDataFrame"
 
     if type(fname) is str:
         if not os.path.isfile(fname):
@@ -246,7 +246,7 @@ def load_csv(fname, encoding=None):
     else:
         df = pd.read_csv(data, delimiter=dialect.delimiter,
                          header=header_line_idx, skip_blank_lines=False)
-    df = DataStructure(df.dropna(axis=("index", "columns"), how="all"), name=name)
+    df = StructuredDataFrame(df.dropna(axis=("index", "columns"), how="all"), name=name)
     return df
 
 
@@ -259,7 +259,7 @@ def load_dftxt(fname):
 
     Returns
     -------
-    DataStructure
+    StructuredDataFrame
         fully specified datastructure from the dftxt file
 
     """
@@ -292,14 +292,14 @@ def load_dftxt(fname):
             raise exceptions.IncorrectFileType("df file missing required class for file-type information")
         else:
             try:
-                cls = structures.structures[cls_key]  # type: typing.Type[DataStructure]
+                cls = structures.structures[cls_key]  # type: typing.Type[StructuredDataFrame]
             except KeyError:
                 raise exceptions.LoaderException("df class {:s} is not supported by any known DF Structure "
                                                  "classes".format(cls_key))
 
         if not cls.required_metadata().issubset(meta_data):
             raise exceptions.LoaderException("file meta-data does not match the required meta-data for the specified "
-                                             "DataStructure Structure")
+                                             "StructuredDataFrame Structure")
 
         for i, line in enumerate(iter(fid.readline, '')):
             data_sample += line
@@ -316,14 +316,14 @@ def load_dftxt(fname):
         fid.seek(data_location)
         df = pd.read_csv(fid, sep=dialect.delimiter)
         if not cls.required_columns().issubset(df.columns):
-            raise exceptions.LoaderException("DataStructure Columns do not match the required columns for the specified "
-                                             "DataStructure Structure")
+            raise exceptions.LoaderException("StructuredDataFrame Columns do not match the required columns for the specified "
+                                             "StructuredDataFrame Structure")
 
         df = cls(df.dropna(axis=("index", "columns"), how="all"), **meta_data)
         return df
 
 
-df_loader = Loader(load_dftxt, DataStructure, (".df"), "DataStructure text file")
+df_loader = Loader(load_dftxt, StructuredDataFrame, (".df"), "StructuredDataFrame text file")
 register_loaders(df_loader)
 
 
@@ -334,7 +334,7 @@ def load_file(fname):
     by the radie structures and loaders can be passed to this function without needing to specify anything, and the
     proper Loader function will be determined automatically.  First a list of possible loader functions are found from
     the file extension.  They are then tried one by one, with each inappropriate function returning None, and continuing
-    on to the next loader function.  The first time a valid DataStructure is returned, the function breaks the look and
+    on to the next loader function.  The first time a valid StructuredDataFrame is returned, the function breaks the look and
     returns that object.  If no valid loader function is found, we attempt to read in the file using the load_csv
     automatic csv reader function.
 
@@ -345,9 +345,9 @@ def load_file(fname):
 
     Returns
     -------
-    DataStructure or list or tuple
+    StructuredDataFrame or list or tuple
         the output of the automatically determined loader function, could be a
-        single DataStructure or a list of DataFrames
+        single StructuredDataFrame or a list of DataFrames
 
     """
     ext = os.path.splitext(fname)[1]
@@ -360,18 +360,18 @@ def load_file(fname):
     for loader in loaders_:  # type: Loader
         try:
             dfs = loader.load(fname)
-            if isinstance(dfs, DataStructure):
+            if isinstance(dfs, StructuredDataFrame):
                 print("successfully loaded file as {:}".format(type(dfs).__name__))
                 return dfs
             elif type(dfs) in (list, tuple):
-                df_list = [df for df in dfs if isinstance(df, DataStructure)]
+                df_list = [df for df in dfs if isinstance(df, StructuredDataFrame)]
                 if not df_list:
-                    raise exceptions.LoaderException("function {:s} did not return any DataStructure "
+                    raise exceptions.LoaderException("function {:s} did not return any StructuredDataFrame "
                                                      "objects from file {:s}".format(loader.module, fname))
                 print("loaded {:d} dataframes from {:}".format(len(df_list), os.path.basename(fname)))
                 return df_list
             else:
-                raise exceptions.LoaderException("function {:s} did not return any DataStructure "
+                raise exceptions.LoaderException("function {:s} did not return any StructuredDataFrame "
                                                  "objects from file {:s}".format(loader.module, fname))
         except exceptions.IncorrectFileType:
             continue

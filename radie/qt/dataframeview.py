@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtWidgets, QtGui
 
-from ..structures.datastructure import DataStructure
+from ..structures.structureddataframe import StructuredDataFrame
 
 
 class PandasModel(QtCore.QAbstractTableModel):
@@ -30,13 +30,13 @@ class PandasModel(QtCore.QAbstractTableModel):
         return None
 
 
-def viewDataFrame(df: DataStructure):
+def viewDataFrame(df: StructuredDataFrame):
     """
     Construct a TableView Dialog to view DataFrameContents)
 
     Parameters
     ----------
-    df : DataStructure
+    df : StructuredDataFrame
     """
 
     # TODO: Implement Copy Function

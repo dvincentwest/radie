@@ -98,7 +98,7 @@ def load_ras(fname, name=None):
     Returns
     -------
     df_xrd : PowderDiffraction
-        PowderDiffraction DataStructure based on XRD data
+        PowderDiffraction StructuredDataFrame based on XRD data
 
     """
 

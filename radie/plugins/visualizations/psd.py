@@ -98,7 +98,7 @@ class VisPSD(base.Visualization, Ui_PSD):
 
     def itemToggled(self, item):
         """
-        process checking/unchecking of a DataStructure in the plot
+        process checking/unchecking of a StructuredDataFrame in the plot
 
         Parameters
         ----------

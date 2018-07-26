@@ -1,4 +1,4 @@
-"""package for QtWidgets used to visualize DataStructure objects"""
+"""package for QtWidgets used to visualize StructuredDataFrame objects"""
 
 import warnings
 import typing

@@ -1,18 +1,18 @@
 from collections import OrderedDict
 
 import numpy as np
-from radie.structures import DataStructure, register_data_structures
+from radie.structures import StructuredDataFrame, register_data_structures
 
 
-class PSD(DataStructure):
+class PSD(StructuredDataFrame):
     """
-    DataStructure for holding Particle Size Distribution data
+    StructuredDataFrame for holding Particle Size Distribution data
 
     """
 
     label = "PSD"
 
-    _required_metadata = DataStructure._required_metadata.copy()
+    _required_metadata = StructuredDataFrame._required_metadata.copy()
     _required_metadata.update({
         "refractive_index": "1.0",
         "distribution_mode": "volume",

@@ -3,7 +3,7 @@ import sys
 from PyQt5 import QtCore, QtWidgets, QtGui
 import pyqtgraph as pg
 
-from ..structures import DataStructure
+from ..structures import StructuredDataFrame
 from ..import loaders
 from . import cfg, visualizations, dpi, masterdftree
 from . import functions as fn
@@ -217,13 +217,13 @@ class MainWindow(QtWidgets.QMainWindow):
                 err_msg += "\nError: {:}.\ncould not load file: {:}".format(str(inst), fname)
                 continue
 
-            if isinstance(dfs, DataStructure):
+            if isinstance(dfs, StructuredDataFrame):
                 dfs = [dfs]
-            for df in dfs:  # type: DataStructure
+            for df in dfs:  # type: StructuredDataFrame
                 try:
                     self.treeView_dataFrames.addDataFrame(df)
                 except Exception as e:
-                    err_msg += "\nError: {:}.\nSomething wrong could not load {:} as a DataStructure Object".format(str(e), df)
+                    err_msg += "\nError: {:}.\nSomething wrong could not load {:} as a StructuredDataFrame Object".format(str(e), df)
                     continue
 
         if err_msg.strip():
@@ -238,7 +238,7 @@ class MainWindow(QtWidgets.QMainWindow):
         item.showVisualization()
 
     def importDataFrameFromClipboard(self):
-        df = DataStructure.from_clipboard()
+        df = StructuredDataFrame.from_clipboard()
         df.metadata["name"] = "DF - clipboard"
         self.treeView_dataFrames.addDataFrame(df)
 

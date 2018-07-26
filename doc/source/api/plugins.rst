@@ -3,7 +3,7 @@ Plugins
 
 Plugins extend Radie by providing:
 
-    1. New datastructures via DataStructure subclasses
+    1. New datastructures via StructuredDataFrame subclasses
     2. Loader functions to read new datafile formats
     3. New QtWidget based Visualizations to plugin to the Radie Viewer
 

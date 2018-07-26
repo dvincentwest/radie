@@ -4,7 +4,7 @@ import typing
 import numpy as np
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from ..structures import DataStructure
+from ..structures import StructuredDataFrame
 from .indexabledict import IndexableDict
 from .errors import DFTypeError
 from .masterdftree import DFReference
@@ -87,7 +87,7 @@ class DFItemList(list):
         self._itemClass = cls
 
     def append(self, ref):
-        """append a new DataStructure to the List
+        """append a new StructuredDataFrame to the List
 
         Parameters
         ----------
@@ -310,7 +310,7 @@ class DFListView(QtWidgets.QTreeView):
         self.setAcceptDrops(True)
         self.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
         self.customContextMenuRequested.connect(self.rightClicked)
-        self.supportedClasses = (DataStructure,)  # support all DataStructure classes by default
+        self.supportedClasses = (StructuredDataFrame,)  # support all StructuredDataFrame classes by default
 
         # normally this will be instantiated with no data, so let's set it up, but can be overridden by the user
         self.setRootIsDecorated(False)
@@ -382,7 +382,7 @@ class DFListView(QtWidgets.QTreeView):
 
         if num_dataframes > 0:
             if num_dataframes == 1:
-                deleteItem = QtWidgets.QAction("Delete DataStructure")
+                deleteItem = QtWidgets.QAction("Delete StructuredDataFrame")
             else:
                 deleteItem = QtWidgets.QAction("Delete DataFrames")
             deleteItem.triggered.connect(self.deleteSelected)
@@ -434,7 +434,7 @@ class DFListView(QtWidgets.QTreeView):
 
                 if invalid_drops:
                     fn.error_popup(
-                        "Invalid DataStructure types: \n\t" + "\n\t".join(invalid_drops) +
+                        "Invalid StructuredDataFrame types: \n\t" + "\n\t".join(invalid_drops) +
                         "\n\nOnly DataFrames of the following types are allowed:\n\t" +
                         "\n\t".join(cls.__name__ for cls in self.supportedClasses)
                     )

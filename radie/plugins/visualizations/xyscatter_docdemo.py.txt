@@ -32,7 +32,7 @@ class DFItem(plotlist.DFItem):
 class XYScatterDemo(base.Visualization):
     """A generic XY scatter visualization"""
     name = "XY Scatter Demo"
-    description = "A generic visualization of XY curves from DataStructure Series"
+    description = "A generic visualization of XY curves from StructuredDataFrame Series"
     _icon_image = os.path.join(cfg.icon_path, "xyscatter.svg")
 
     def __init__(self, parent=None):

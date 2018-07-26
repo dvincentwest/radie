@@ -12,6 +12,14 @@ experimental data. It is not meant for complex plotting or pretty
 pictures, but rather a focus on rapidly converging experimental data
 stored in files into a single place for rapid visualization.
 
+
+## GUI Demo
+
+![Alt Text](https://raw.githubusercontent.com/dvincentwest/radie-demos/master/radie-demo.gif)
+
+The screen capture above shows the loading of three different experimental files (Rigaku XRD file, Particle Size Distribution and an IDEA VSM file) simultaneously into the program with drag and drop using the OS file explorer.  From there we initialize new visualizations and then drag the datasets into the visualizations.  Each visualization is tailored to a certain goal, be it the particularities of vieweing XRD files, PSD files, or the generic needs of plotting columnar data in an XY-scatter plot.  The whole process only takes a few seconds and allows the user to rapidly view and display any kind of experimental data, provided an appropriate loader plugin has been written.
+
+
 ## Python Usage
 
 ```python
@@ -29,11 +37,13 @@ vsm_df = rd.load_file("magnetization_v_field.txt")  # VSM measurement
 print(vsm_df.metadata["name"])
 ```
 
+
 ## Launch PyQt Gui
 
 ```shell
 python -m radie.qt.viewer
 ```
+
 
 ## Requirements
 - numpy
@@ -45,6 +55,7 @@ additionally for the gui application:
 
 optional
 - pywin32 (Windows only)
+
 
 ## Installation
 
@@ -60,10 +71,11 @@ On Windows, running the `install_windows_shortcut.py` script will install
 shorcuts for radie using the same python executables that are used to
 run the install script.  This requires pywin32.
 
+
 ## Highlights
 
 -   Core Features:
-    -   DataStructure - base class, just a pandas DataFrame with some
+    -   StructuredDataFrame - base class, just a pandas DataFrame with some
         restrictions, metadata and templates for more specific
         sub-classes
     -   CSV importer that under some structure assumptions attempts to:
@@ -74,7 +86,7 @@ run the install script.  This requires pywin32.
     -   Qt-based Gui Viewer with Drag and Drop handling of files and
         data-set comparison
 -   Extensible because (nearly) everything is a plugin
-    -   DataStructure subclasses specify structured data
+    -   StructuredDataFrame subclasses specify structured data
         (add-your-own!)
     -   Custom Visualizations of Structured Data, based on whatever fits
         into QMdiSubwindow (I use PyQtGraph)
@@ -87,14 +99,22 @@ run the install script.  This requires pywin32.
 
 \*\* Planned, but not yet implemented
 
+
 ## Currently Supported File-types
 
--   PowderDiffraction:
+-   Powder Diffraction:
     -   Rigaku (.asc, .ras)
     -   Bruker (.raw (v2))
     -   GSAS (.raw, .gsas, .fxye)
--   VSM:
+-   Vibrating Sample Magnetometer:
     -   Lakeshore (.dat, .txt (Field v Moment))
+-   Particle Size Distribution:
+    -   Horiba LA-960 (.csv)
+-   Thermogravimetric Analysis
+    -   TA Instruments Q500 (.001, .002, .003)
+-   Differential Scanning Calorimetry (DSC)
+    -   TA Instruments Q2000 (.001, .002, .003)
+
 
 ## Vision
 
@@ -106,7 +126,7 @@ following goals:
     detection
     -   powder diffraction data
     -   spectrum data
-    -   any data that maps to a Pandas DataStructure
+    -   any data that maps to a Pandas StructuredDataFrame
 2.  rapid comparison of datasets into automatically generated
     visualizations with drag and drop
     -   I don't want to plot things, I want to visualize them, the
@@ -131,4 +151,4 @@ following goals:
     -   Excel is the most wide-spread format for sharing/visualizing 1-D
         datasets and these datasets are literally everywhere. A quick
         button to make an excel file to share with the non-programmers
-        out there is critical
+        out there is critical (currently Windows only)

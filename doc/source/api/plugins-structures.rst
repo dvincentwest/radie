@@ -2,5 +2,5 @@ Extended DataStructures
 ==========================
 
 .. automodule:: radie.structures
-    :exclude-members: DataStructure
+    :exclude-members: StructuredDataFrame
     :members:

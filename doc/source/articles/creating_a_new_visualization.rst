@@ -1,7 +1,7 @@
 Creating A New Visualization
 ============================
 
-*a quick note*: DF stands for :doc:`DataStructure </api/dataframe>`
+*a quick note*: DF stands for :doc:`StructuredDataFrame </api/dataframe>`
 
 This article will demonstrate the creation of a new QWidget based visualization
 for dataframes, that can be included into the Radie Viewer, written in
@@ -118,7 +118,7 @@ of the base visualization.
     class XYScatterDemo(base.Visualization):
         """A generic XY scatter visualization"""
         name = "XY Scatter Demo"
-        description = "Generic visualization of XY curves from DataStructure Series"
+        description = "Generic visualization of XY curves from StructuredDataFrame Series"
         _icon_image = os.path.join(cfg.icon_path, "xyscatter.svg")
 
 As per the usual, we modify the relevant class variables, tailored to our

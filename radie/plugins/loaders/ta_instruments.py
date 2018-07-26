@@ -66,7 +66,7 @@ def load_ta_instruments(fname, required_keys=None, required_kvs=None):
         'units', list of strings corresponding to units for the columns (mixed case)
     results : numpy array
         array of floats, number of columns dictated by the input file
-        TGA DataStructure
+        TGA StructuredDataFrame
     """
 
     results = []
@@ -184,9 +184,9 @@ def load_dsc(fname):
     Returns
     -------
     df_dsc : DSC
-        DSC DataStructure
+        DSC StructuredDataFrame
     """
-    ta_out = load_ta_instruments(fname, required_kvs={"Instrument":"DSC Q2000"})
+    ta_out = load_ta_instruments(fname, required_kvs={"Instrument": "DSC Q2000"})
     if ta_out is None:
         raise exceptions.IncorrectFileType
 
@@ -219,9 +219,9 @@ def load_tga(fname):
     Returns
     -------
     df_tga : TGA
-        TGA DataStructure
+        TGA StructuredDataFrame
     """
-    ta_out = load_ta_instruments(fname, required_kvs={"Instrument":"TGA Q500"})
+    ta_out = load_ta_instruments(fname, required_kvs={"Instrument": "TGA Q500"})
     if ta_out is None:
         raise exceptions.IncorrectFileType
     metadata, results = ta_out
@@ -233,6 +233,7 @@ def load_tga(fname):
                  columns=underscored_columns,
                  **metadata)
     return df_tga
+
 
 TA_Q500_loader = Loader(load_tga, TGA, [".001", ".002", ".003"], "TA Instruments Q500")
 

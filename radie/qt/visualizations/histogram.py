@@ -6,7 +6,7 @@ import numpy as np
 from PyQt5 import QtCore, QtWidgets
 import pyqtgraph as pg
 
-from ...structures.datastructure import DataStructure
+from ...structures.structureddataframe import StructuredDataFrame
 from .. import colors, cfg, dpi
 from .. import plotwidget
 from .. import plotlist
@@ -124,7 +124,7 @@ class Histogram(Visualization):
 
     def itemToggled(self, item):
         """
-        process checking/unchecking of a DataStructure in the plot
+        process checking/unchecking of a StructuredDataFrame in the plot
 
         Parameters
         ----------
@@ -163,7 +163,7 @@ def test():
     a = np.hstack((rng.normal(size=1000), rng.normal(loc=5, scale=2, size=1000)))
     b = np.hstack((rng.normal(size=1000, scale=2), rng.normal(loc=5, scale=1, size=1000)))
     data = np.vstack((a, b)).T
-    df = DataStructure(data, columns=("a", "b"), name="Deterministic Random Data")
+    df = StructuredDataFrame(data, columns=("a", "b"), name="Deterministic Random Data")
     ref1 = DFReference(df, None)
 
     plot = Histogram()
