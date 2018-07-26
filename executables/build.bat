@@ -12,8 +12,11 @@ set ZIPAPP=radie_qt_viewer
 
 :: Bare Python installs for development headers/libraries
 set PY3_x64=C:\Miniconda3\
+
 set VCVARSALL="C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Auxiliary\Build\vcvarsall.bat"
-set VCVARSALL="C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvarsall.bat"
+if not exist %VCVARSALL% (
+    set VCVARSALL="C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\VC\Auxiliary\Build\vcvarsall.bat"
+)
 
 :: Icon File
 set LINK=%APPNAME%.res
