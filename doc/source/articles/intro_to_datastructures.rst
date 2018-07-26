@@ -4,12 +4,12 @@ Introduction to Data Structures
 Data structures get at the heart of what radie is for.  Many kinds of data
 can easily be represented as labeled columns of data, combined with meta-data.
 The pandas python module provides a robust framework for this in the form of a
-DataStructure.  For this module we define a lightly modified DataStructure subclass
-called a :doc:`DataStructure</api/dataframe>`
+StructuredDataFrame.  For this module we define a lightly modified StructuredDataFrame subclass
+called a :doc:`StructuredDataFrame</api/dataframe>`
 
-As a DataStructure is a pandas dataframe, you can manipulate it in all the same
-ways that you can manipulate a DataStructure. The essential distinguishing attributes
-of a DataStructure are (Please see the API page for further details):
+As a StructuredDataFrame is a pandas dataframe, you can manipulate it in all the same
+ways that you can manipulate a StructuredDataFrame. The essential distinguishing attributes
+of a StructuredDataFrame are (Please see the API page for further details):
 
 * `_required_columns` , a class attribute defining data that a particular
   structure must have.  For example, a powder diffraction measurement must have

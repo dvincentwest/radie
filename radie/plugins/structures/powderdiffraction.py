@@ -1,7 +1,7 @@
 import numpy as np
 from collections import OrderedDict
 
-from radie.structures import DataStructure, register_data_structures
+from radie.structures import StructuredDataFrame, register_data_structures
 
 CuKa1 = 1.5405980  # angstroms
 CuKa2 = 1.5444260  # angstroms
@@ -99,15 +99,15 @@ def calc_d_spacing(x, wavelength=None):
     return d_spacing
 
 
-class PowderDiffraction(DataStructure):
+class PowderDiffraction(StructuredDataFrame):
     """
-    DataStructure for holding Powder diffraction data, valid for any bragg type diffraction measurements:
+    StructuredDataFrame for holding Powder diffraction data, valid for any bragg type diffraction measurements:
     Benchtop XRD, Synchrotron XRD, Neutron Diffraction
     """
 
     label = "Powder Diffraction"
 
-    _required_metadata = DataStructure._required_metadata.copy()
+    _required_metadata = StructuredDataFrame._required_metadata.copy()
     _required_metadata.update({
         "wavelength": CuKa,
         "source": "",

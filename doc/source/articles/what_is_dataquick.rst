@@ -41,7 +41,7 @@ making comparison plots can often be quite cumbersome and tedious.
 
 Radie is meant to fill this gap in speed, providing a framework for very
 rapid import and visualization of datafiles.  To make it work, each class of
-scientific data must have a defined structure (see DataStructure).  Then, for
+scientific data must have a defined structure (see StructuredDataFrame).  Then, for
 each specific file-type containing a measurement, there must be a defined
 function that loads the datafile into the defined structure.  Furthermore, the
 loader functions are associated with file-extensions, and behave in such a way

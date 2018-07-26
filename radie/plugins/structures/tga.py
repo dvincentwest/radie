@@ -1,19 +1,19 @@
 from collections import OrderedDict
 import numpy as np
 import pandas as pd
-from radie.structures import DataStructure, register_data_structures
+from radie.structures import StructuredDataFrame, register_data_structures
 
 
-class TGA(DataStructure):
+class TGA(StructuredDataFrame):
     """
-    DataStructure for holding Thermogravimetric analysis data
+    StructuredDataFrame for holding Thermogravimetric analysis data
     Default units are minutes, mg, and celsius
     Please convert results to default units during instantiation, no unit checking is done within
     """
 
     label = "Thermogravimetric Analysis"
 
-    _required_metadata = DataStructure._required_metadata.copy()
+    _required_metadata = StructuredDataFrame._required_metadata.copy()
 
     _x = "time" # minutes
     _y = "weight" # mg

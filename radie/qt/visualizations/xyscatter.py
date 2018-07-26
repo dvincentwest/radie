@@ -61,7 +61,7 @@ class XYScatter(base.Visualization, Ui_XYScatter):
 
     """
     name = "XY Scatter"
-    description = "A generic visualization of XY curves from DataStructure Series"
+    description = "A generic visualization of XY curves from StructuredDataFrame Series"
     _icon_image = os.path.join(cfg.icon_path, "xyscatter.svg")
 
     def __init__(self, parent=None):
@@ -169,7 +169,7 @@ class XYScatter(base.Visualization, Ui_XYScatter):
             self.plotWidget.addItem(item.plotDataItem)
 
     def itemToggled(self, item):
-        """process checking/unchecking of a DataStructure in the plot
+        """process checking/unchecking of a StructuredDataFrame in the plot
 
         Parameters
         ----------

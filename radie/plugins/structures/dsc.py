@@ -1,17 +1,17 @@
 from collections import OrderedDict
-from radie.structures import DataStructure, register_data_structures
+from radie.structures import StructuredDataFrame, register_data_structures
 
 
-class DSC(DataStructure):
+class DSC(StructuredDataFrame):
     """
-    DataStructure for holding Thermogravimetric analysis data
+    StructuredDataFrame for holding Thermogravimetric analysis data
     Default units are minutes, mg, and celsius
     Please convert results to default units during instantiation, no unit checking is done within
     """
 
     label = "Differential Scanning Calorimetry"
 
-    _required_metadata = DataStructure._required_metadata.copy()
+    _required_metadata = StructuredDataFrame._required_metadata.copy()
     _required_metadata['mass'] = 1. # mg, Default to 1 in case none is provided, used for normalization
 
     _x = "temperature" # celsius

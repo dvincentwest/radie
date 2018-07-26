@@ -138,7 +138,7 @@ def load_csv(fname):
     Returns
     -------
     df_psd : PSD
-        PSD DataStructure
+        PSD StructuredDataFrame
     """
 
     starting_lines = [

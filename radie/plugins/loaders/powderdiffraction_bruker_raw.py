@@ -37,7 +37,7 @@ def load_raw(fname, name=None):
     .raw file output from Bruker XRD.  Tested with files from Bruker D8
     Ported from xylib\bruker_raw.cpp
 
-    If multiple ranges exist in the RAW file a list of PowderDiffraction DataStructure
+    If multiple ranges exist in the RAW file a list of PowderDiffraction StructuredDataFrame
     objects are returned. If only one a single object is returned
 
     Parameters
@@ -50,7 +50,7 @@ def load_raw(fname, name=None):
     Returns
     -------
     df_xrd : single PowderDiffraction or list of them
-        PowderDiffraction DataStructure based on XRD data
+        PowderDiffraction StructuredDataFrame based on XRD data
 
     """
 
@@ -69,7 +69,7 @@ def load_raw(fname, name=None):
         else:
             return dfs
     else:
-        raise TypeError("Unrecognized DataStructure type: {:}".format(type(dfs)))
+        raise TypeError("Unrecognized StructuredDataFrame type: {:}".format(type(dfs)))
 
 
 def read_int(f):

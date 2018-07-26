@@ -97,7 +97,7 @@ class VisPowderDiffraction(base.Visualization, Ui_PowderDiffraction):
 
     def itemToggled(self, item):
         """
-        process checking/unchecking of a DataStructure in the plot
+        process checking/unchecking of a StructuredDataFrame in the plot
 
         Parameters
         ----------

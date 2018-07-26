@@ -75,7 +75,7 @@ run the install script.  This requires pywin32.
 ## Highlights
 
 -   Core Features:
-    -   DataStructure - base class, just a pandas DataFrame with some
+    -   StructuredDataFrame - base class, just a pandas DataFrame with some
         restrictions, metadata and templates for more specific
         sub-classes
     -   CSV importer that under some structure assumptions attempts to:
@@ -86,7 +86,7 @@ run the install script.  This requires pywin32.
     -   Qt-based Gui Viewer with Drag and Drop handling of files and
         data-set comparison
 -   Extensible because (nearly) everything is a plugin
-    -   DataStructure subclasses specify structured data
+    -   StructuredDataFrame subclasses specify structured data
         (add-your-own!)
     -   Custom Visualizations of Structured Data, based on whatever fits
         into QMdiSubwindow (I use PyQtGraph)
@@ -126,7 +126,7 @@ following goals:
     detection
     -   powder diffraction data
     -   spectrum data
-    -   any data that maps to a Pandas DataStructure
+    -   any data that maps to a Pandas StructuredDataFrame
 2.  rapid comparison of datasets into automatically generated
     visualizations with drag and drop
     -   I don't want to plot things, I want to visualize them, the

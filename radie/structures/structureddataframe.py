@@ -8,20 +8,20 @@ import pandas
 from .. import util
 
 
-class DataStructure(pandas.DataFrame):
+class StructuredDataFrame(pandas.DataFrame):
     """Sub-Class of pandas `DataFrame` that defines data-structures through
        metadata and expected columns of data
 
-    The DataStructure class is distinguished from a pandas DataStructure through
+    The StructuredDataFrame class is distinguished from a pandas StructuredDataFrame through
     private class variables that provide a way to specify the structure of data,
     which facilitates the easy processing and visualization of that data, e.g.
-    in the Radie QtViewer. When creating a subclass of a DataStructure, the
+    in the Radie QtViewer. When creating a subclass of a StructuredDataFrame, the
     following class variables should be defined in the subclass in order to
     define the structure of the subclass.
 
     _required_columns : OrderedDict()
         a class variable defining the expected data series.  The dict keys are
-        the DataStructure column labels and the values are the expected data types
+        the StructuredDataFrame column labels and the values are the expected data types
         (e.g. int, float, etc.)
     _required_metadata : set
         a class variable defining the set of required_metadata keys, used for validation
@@ -34,12 +34,12 @@ class DataStructure(pandas.DataFrame):
     _z : typing.Hashable
         the column label for 'z' values, if None defaults to the 3rd column
 
-    the pandas `DataStructure` class has private variable `_metadata`_ which can be
+    the pandas `StructuredDataFrame` class has private variable `_metadata`_ which can be
     assigned a list of strings that become instance attributes.  For example, if
     a class class defines :code:`_metadata = ["name", "date"]`, then an instance
     can reference values as :code:`df.name`, and :code:`df.date`.
 
-    Because `_metadata` is more of an ad-hoc feature of `DataStructure`, and might
+    Because `_metadata` is more of an ad-hoc feature of `StructuredDataFrame`, and might
     be deprecated in the future, this class uses `_metadata` to define an
     attribute `metadata`, as an `OrderedDict` of metadata that can easily
     interface with the json module for saving.  As such, metadata would be
@@ -74,7 +74,7 @@ class DataStructure(pandas.DataFrame):
 
     """
 
-    label = "DataStructure"
+    label = "StructuredDataFrame"
 
     _metadata = "metadata"
     _required_metadata = OrderedDict((
@@ -90,7 +90,7 @@ class DataStructure(pandas.DataFrame):
     _loaders = []  # functions that will read in a file and return this class
 
     def __init__(self, data=None, index=None, columns=None, dtype=None, copy=False, **metadata):
-        """The constructor for a DataStructure, has the same signature as for a Pandas
+        """The constructor for a StructuredDataFrame, has the same signature as for a Pandas
 
         Parameters
         ----------
@@ -103,7 +103,7 @@ class DataStructure(pandas.DataFrame):
             keyword arguments specifically for the metadata.  Must be JSON compatible
 
         """
-        super(DataStructure, self).__init__(data, index, columns, dtype, copy)
+        super(StructuredDataFrame, self).__init__(data, index, columns, dtype, copy)
         self.metadata = OrderedDict()
         self._uuid = None  # type: str
 
@@ -120,15 +120,15 @@ class DataStructure(pandas.DataFrame):
 
     def is_valid(self):
         """determine if the data and metadata match the specifications of the
-            DataStructure class or sublcass
+            StructuredDataFrame class or sublcass
 
-        DataStructure is meant to be subclassed.  The core specification of a
-        DataStructure are expected columns of data in `._required_columns` and
+        StructuredDataFrame is meant to be subclassed.  The core specification of a
+        StructuredDataFrame are expected columns of data in `._required_columns` and
         also necessary meta-data specified in the `._required_metadata`
-        dictionary.  If in the construction or maniuplation of a DataStructure,
+        dictionary.  If in the construction or maniuplation of a StructuredDataFrame,
         the object no longer has the required columns or the required metadata,
         it is no longer a valid datastructure.  This function checks the state
-        of the instance to see if it matches the class.  All base DataStructure
+        of the instance to see if it matches the class.  All base StructuredDataFrame
         instances should return `True` unless the `name` entry is removed from
         the `.metadata` `dict`.
 
@@ -301,7 +301,7 @@ class DataStructure(pandas.DataFrame):
             fid.write(data_block)
 
     def serialize(self):
-        """return a string representation of the DataStructure, with metadata
+        """return a string representation of the StructuredDataFrame, with metadata
             included
 
         Returns
@@ -309,7 +309,7 @@ class DataStructure(pandas.DataFrame):
         str
 
         """
-        # TODO: define a standard text-format for a DataStructure
+        # TODO: define a standard text-format for a StructuredDataFrame
         # TODO: after text format is defined, modify here to
         data_block = self.to_csv(index=None)
         return data_block
@@ -326,5 +326,5 @@ class DataStructure(pandas.DataFrame):
 
     def rdplot(self, *args, **kwargs):
         """Subclasses may implement custom plotting functionality"""
-        raise NotImplementedError("only available for specific subclasses of DataStructure")
+        raise NotImplementedError("only available for specific subclasses of StructuredDataFrame")
 

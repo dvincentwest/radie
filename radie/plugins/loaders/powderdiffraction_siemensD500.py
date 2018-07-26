@@ -18,7 +18,7 @@ def load_txt(fname):
     Returns
     -------
     df_xrd : PowderDiffraction
-        PowderDiffraction DataStructure based on XRD data
+        PowderDiffraction StructuredDataFrame based on XRD data
 
     """
 
