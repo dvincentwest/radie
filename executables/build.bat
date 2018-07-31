@@ -47,17 +47,17 @@ call python -m zipapp %ZIPAPP% -o %ZIPAPP%.pyz
 
 echo Compiling embedded launchers
 cl /EHsc /DUNICODE /D_UNICODE /DWINGUI embedded_runtime_launcher.cpp /Feout
-COPY /B /Y out.exe+%ZIPAPP%.pyz %APPNAME%-embedded.exe
+COPY /B /Y out.exe+%ZIPAPP%.pyz exe\%APPNAME%-embedded.exe
 
 cl /EHsc /DUNICODE /D_UNICODE embedded_runtime_launcher.cpp /Feout
-COPY /B /Y out.exe+%ZIPAPP%.pyz %APPNAME%-embedded-Console.exe
+COPY /B /Y out.exe+%ZIPAPP%.pyz exe\%APPNAME%-embedded-Console.exe
 
 echo Compiling standard launchers
 cl /EHsc /DUNICODE /D_UNICODE /DWINGUI standard_launcher.cpp /Feout
-COPY /B /Y out.exe+%ZIPAPP%.pyz %APPNAME%.exe
+COPY /B /Y out.exe+%ZIPAPP%.pyz exe\%APPNAME%.exe
 
 cl /EHsc /DUNICODE /D_UNICODE standard_launcher.cpp /Feout
-COPY /B /Y out.exe+%ZIPAPP%.pyz %APPNAME%-Console.exe
+COPY /B /Y out.exe+%ZIPAPP%.pyz exe\%APPNAME%-Console.exe
 
 del out.exe
 del *.obj
