@@ -6,6 +6,7 @@ import warnings
 import io
 import json
 import typing
+from pathlib import Path
 
 import pandas as pd
 
@@ -112,7 +113,7 @@ def from_clipboard(*args, **kwargs):
     return StructuredDataFrame(df)
 
 
-def load_csv(fname, encoding=None):
+def load_csv(fname, name=None, encoding=None):
     """
     a function to read a generic csv file and return a dataframe. It is assumed that the file has the following
     structure:
@@ -143,16 +144,23 @@ def load_csv(fname, encoding=None):
     StructuredDataFrame
 
     """
-    name = "StructuredDataFrame"
+
+    if not name:
+        name = ''
+
+    if isinstance(fname, Path):
+        fname = str(fname)
 
     if type(fname) is str:
         if not os.path.isfile(fname):
             raise TypeError("fname must be a valid file, string blocks not yet supported")
         with open(fname, "r", encoding=encoding) as fid:
-            name = os.path.basename(fname)
+            if not name:
+                name = os.path.basename(fname)
             data = io.StringIO(fid.read())
     elif type(fname) is io.TextIOWrapper:
-        name = os.path.basename(fname.name)
+        if not name:
+            name = os.path.basename(fname.name)
         data = io.StringIO(fname.read)
     elif type(fname) is io.StringIO:
         data = fname
@@ -246,12 +254,13 @@ def load_csv(fname, encoding=None):
     else:
         df = pd.read_csv(data, delimiter=dialect.delimiter,
                          header=header_line_idx, skip_blank_lines=False)
-    df = StructuredDataFrame(df.dropna(axis=("index", "columns"), how="all"), name=name)
+
+    df = StructuredDataFrame(df.dropna(axis="index", how="all").dropna(axis='columns', how='all'), name=name)
     return df
 
 
 def load_dftxt(fname):
-    """load files from the `DataFrame.savetxt` method
+    """load files from the `StructuredDataFrame.savetxt` method
 
     Parameters
     ----------
