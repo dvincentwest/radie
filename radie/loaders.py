@@ -102,7 +102,7 @@ def register_loaders(*loader_objects):
             if ext not in loaders.keys():
                 loaders[ext] = []
             if loader in loaders[ext]:
-                warnings.warn("overwriting Loader Object {:} for file extension {:}".format(loader.label, ext))
+                warnings.warn('overwriting Loader Object {:} for file extension {:}'.format(loader.label, ext))
             loaders[ext].append(loader)
         if loader.cls not in loader.cls.loaders():  # setup circular referencing of sorts
             loader.cls.add_loader(loader)
@@ -153,7 +153,7 @@ def load_csv(fname, name=None, encoding=None):
 
     if type(fname) is str:
         if not os.path.isfile(fname):
-            raise TypeError("fname must be a valid file, string blocks not yet supported")
+            raise TypeError('fname must be a valid file, string blocks not yet supported')
         with open(fname, "r", encoding=encoding) as fid:
             if not name:
                 name = os.path.basename(fname)
@@ -165,7 +165,7 @@ def load_csv(fname, name=None, encoding=None):
     elif type(fname) is io.StringIO:
         data = fname
     else:
-        raise TypeError("must provide a filename, a TextIOWrapper object, or a StringIO object")
+        raise TypeError('must provide a filename, a TextIOWrapper object, or a StringIO object')
 
     lines = data.readlines()
     data.seek(0)
@@ -189,7 +189,7 @@ def load_csv(fname, name=None, encoding=None):
         dialect = sniffer.sniff(chunk)
     except:
         err_msg = "\n".join(traceback.format_exception(*sys.exc_info()))
-        raise exceptions.LoaderException("Sniffing delimieter failed\n{:s}".format(err_msg))
+        raise exceptions.LoaderException('Sniffing delimieter failed\n{:s}'.format(err_msg))
 
     def numeric_signature(values):
         sig = list()
@@ -206,7 +206,7 @@ def load_csv(fname, name=None, encoding=None):
 
     # if chunk lines are not all the same length, raise a LoaderException
     if not all([length == chunk_length for length in lengths]):
-        raise exceptions.LoaderException("csv sample lines have different lengths")
+        raise exceptions.LoaderException('csv sample lines have different lengths')
 
     chunk_numeric_signature = numeric_signature(chunk_lines[0].split(dialect.delimiter))
     data_block_beginning = -1
@@ -246,7 +246,7 @@ def load_csv(fname, name=None, encoding=None):
             break
 
     if data_block_beginning < 0:
-        raise exceptions.LoaderException("datablock not found")
+        raise exceptions.LoaderException('datablock not found')
 
     if header_line_idx is None:
         df = pd.read_csv(data, delimiter=dialect.delimiter, names=explicit_header,
@@ -254,7 +254,6 @@ def load_csv(fname, name=None, encoding=None):
     else:
         df = pd.read_csv(data, delimiter=dialect.delimiter,
                          header=header_line_idx, skip_blank_lines=False)
-
     df = StructuredDataFrame(df.dropna(axis="index", how="all").dropna(axis='columns', how='all'), name=name)
     return df
 
@@ -274,12 +273,12 @@ def load_dftxt(fname):
     """
     header_block = []
     data_location = None
-    data_sample = ""
-    with open(fname, "r") as fid:
+    data_sample = ''
+    with open(fname, 'r') as fid:
         for line in iter(fid.readline, ''):
             if line.isspace():
                 data_location = fid.tell()
-            elif line.startswith("#"):
+            elif line.startswith('#'):
                 header_block.append(line[1:])
                 data_location = fid.tell()
             else:

@@ -39,7 +39,7 @@ class StructuredDataFrame(pandas.DataFrame):
     a class class defines :code:`_metadata = ["name", "date"]`, then an instance
     can reference values as :code:`df.name`, and :code:`df.date`.
 
-    Because `_metadata` is more of an ad-hoc feature of `StructuredDataFrame`, and might
+    Because `_metadata` is more of an ad-hoc feature of `pandas.DataFrame`, and might
     be deprecated in the future, this class uses `_metadata` to define an
     attribute `metadata`, as an `OrderedDict` of metadata that can easily
     interface with the json module for saving.  As such, metadata would be
@@ -200,12 +200,12 @@ class StructuredDataFrame(pandas.DataFrame):
             return self.columns.get_loc(self._z)
 
     @classmethod
-    def required_metadata(self):
-        return set(self._required_metadata)
+    def required_metadata(cls):
+        return set(cls._required_metadata)
 
     @classmethod
-    def required_columns(self):
-        return set(self._required_columns)
+    def required_columns(cls):
+        return set(cls._required_columns)
 
     @property
     def uuid(self):
