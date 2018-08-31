@@ -4,7 +4,7 @@ import warnings
 import typing
 from collections import OrderedDict
 
-from . import base, xyscatter, histogram
+from . import base, xyscatter, histogram, series
 
 __all__ = []
 visualizations = OrderedDict()
@@ -30,5 +30,6 @@ def register_visualizations(*sub_classes):
 
 register_visualizations(
     xyscatter.XYScatter,
+    series.SeriesVisualization,
     histogram.Histogram,
 )

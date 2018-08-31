@@ -1,6 +1,7 @@
 import sys
 
 from PyQt5 import QtCore, QtWidgets, QtGui
+import sip
 import pyqtgraph as pg
 
 from ..structures import StructuredDataFrame
@@ -60,6 +61,8 @@ class SubWindowListItem(QtWidgets.QListWidgetItem):
 
 
 class SubWindowList(QtWidgets.QListWidget):
+    visualizationMenuRequested = QtCore.pyqtSignal(object)
+
     def __init__(self, *args, **kwargs):
         super(SubWindowList, self).__init__(*args, **kwargs)
         self.setAcceptDrops(True)
@@ -68,6 +71,8 @@ class SubWindowList(QtWidgets.QListWidget):
         self.setEditTriggers(QtWidgets.QAbstractItemView.SelectedClicked | QtWidgets.QAbstractItemView.EditKeyPressed)
         self.itemDoubleClicked.connect(self.processDoubleClick)
         self.itemDelegate().commitData.connect(self.itemTextUpdated)
+        self.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
+        self.customContextMenuRequested.connect(self.rightClicked)
 
     def itemTextUpdated(self):
         item = self.currentItem()  # type: SubWindowListItem
@@ -75,6 +80,31 @@ class SubWindowList(QtWidgets.QListWidget):
 
     def processDoubleClick(self, item: SubWindowListItem):
         item.showVisualization()
+
+    def rightClicked(self, pos: QtCore.QPoint):
+        selected = self.selectedItems()
+        num_rows = len(selected)
+
+        if num_rows == 0:
+            self.visualizationMenuRequested.emit(self.mapToGlobal(pos))
+            return
+
+        # else we have selected rows, so do something with those rows
+        menu = QtWidgets.QMenu()
+        if num_rows == 1:
+            deleteItem = QtWidgets.QAction("Delete Visualization", menu)
+        else:
+            deleteItem = QtWidgets.QAction("Delete Visualizations", menu)
+
+        deleteItem.triggered.connect(self.deleteSelectedVisualizations)
+        menu.addAction(deleteItem)
+        menu.exec_(self.mapToGlobal(pos))  # QtWidgets.QAction
+
+    def deleteSelectedVisualizations(self):
+        for item in self.selectedItems():  # type: SubWindowListItem
+            item.subWindow.mdiArea().removeSubWindow(item.subWindow)
+            sip.delete(item.subWindow)  # necessary to completely remove the QWidgets from memory
+            self.takeItem(self.row(item))
 
 
 class NewVisAction(QtWidgets.QAction):
@@ -119,6 +149,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.dock_visualizations = QtWidgets.QDockWidget(self)
         self.dock_visualizations.setWindowTitle("Visualizations")
         self.visList = VisualizationsList()
+        self.visList.visualizationMenuRequested.connect(self.showNewVisualizationsMenu)
         self.dock_visualizations.setWidget(self.visList)
         self.addDockWidget(QtCore.Qt.DockWidgetArea(1), self.dock_visualizations)
         self.setAcceptDrops(True)
@@ -186,6 +217,12 @@ class MainWindow(QtWidgets.QMainWindow):
         ## end menus
 
         self.actionSave.setEnabled(False)
+
+    def showNewVisualizationsMenu(self, pos: QtCore.QPoint):
+        menu = QtWidgets.QMenu()
+        for action in self.vis_actions:
+            menu.addAction(action)
+        menu.exec_(pos)
 
     def closeEvent(self, event):
         quit_msg = ""

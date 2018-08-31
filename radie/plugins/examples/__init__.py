@@ -15,7 +15,7 @@ def example_powderdiffraction():
     df : PowderDiffraction
 
     """
-    example_ras_file = os.path.join(this_dir, "data/barium_ferrite.ras")
+    example_ras_file = os.path.join(this_dir, "data/xrd.ras")
     df = powderdiffraction_rigaku.load_ras(example_ras_file)
     return df
 
@@ -29,6 +29,6 @@ def example_vsm():
     df : VSM
 
     """
-    example_file = os.path.join(this_dir, "data/idea_vsm.txt")
+    example_file = os.path.join(this_dir, "data/vsm.txt")
     df = vsm_lakeshore.load_ideavsm_txt(example_file)
     return df

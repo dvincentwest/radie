@@ -1,15 +1,16 @@
 """module for the visualizations of generic datastructures"""
 import os
 
-from PyQt5 import QtGui
+from PyQt5 import QtGui, QtWidgets, QtCore
 import pyqtgraph as pg
 
 from . import base
 from .. import dpi
 from .. import cfg, colors
 from .. import plotlist
-from ..ui.xyscatter import Ui_XYScatter
 from .. import functions as fn
+from ..plotlist import DFXYListView
+from ..plotwidget import PlotWidget
 
 
 class DFItem(plotlist.DFItem):
@@ -53,7 +54,7 @@ class DFItem(plotlist.DFItem):
             self.setLegend()
 
 
-class XYScatter(base.Visualization, Ui_XYScatter):
+class XYScatter(base.Visualization):
     """A generic XY scatter visualization
 
     This visualization is meant to accomodate all possible data-frames.  It provides a combo-box in the list widget
@@ -64,9 +65,62 @@ class XYScatter(base.Visualization, Ui_XYScatter):
     description = "A generic visualization of XY curves from StructuredDataFrame Series"
     _icon_image = os.path.join(cfg.icon_path, "xyscatter.svg")
 
+    def setupUi(self):
+        self.resize(1000, 561)
+        self.setWindowTitle('DataFrames')
+        self.verticalLayout_2 = QtWidgets.QVBoxLayout(self)
+        self.verticalLayout_2.setContentsMargins(3, 3, 3, 3)
+        self.splitter = QtWidgets.QSplitter(self)
+        self.splitter.setOrientation(QtCore.Qt.Horizontal)
+        self.layoutWidget = QtWidgets.QWidget(self.splitter)
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.layoutWidget)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.treeView_datasets = DFXYListView(self.layoutWidget)
+        self.verticalLayout.addWidget(self.treeView_datasets)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.comboBox_lineStyle = QtWidgets.QComboBox(self.layoutWidget)
+        self.comboBox_lineStyle.addItem("line")
+        self.comboBox_lineStyle.addItem("points")
+        self.horizontalLayout.addWidget(self.comboBox_lineStyle)
+        self.label_alpha = QtWidgets.QLabel('Scatter Alpha', self.layoutWidget)
+        self.horizontalLayout.addWidget(self.label_alpha)
+        self.slider_alpha = QtWidgets.QSlider(self.layoutWidget)
+        self.slider_alpha.setMaximum(255)
+        self.slider_alpha.setProperty("value", 255)
+        self.slider_alpha.setOrientation(QtCore.Qt.Horizontal)
+        self.horizontalLayout.addWidget(self.slider_alpha)
+        self.label_alphaValue = QtWidgets.QLabel('255', self.layoutWidget)
+        self.horizontalLayout.addWidget(self.label_alphaValue)
+        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.groupBox_Legend = QtWidgets.QGroupBox('Legend', self.layoutWidget)
+        self.groupBox_Legend.setCheckable(True)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.groupBox_Legend)
+        self.checkBox_legend_dfname = QtWidgets.QCheckBox('DF Name', self.groupBox_Legend)
+        self.checkBox_legend_dfname.setChecked(True)
+        self.horizontalLayout_2.addWidget(self.checkBox_legend_dfname)
+        self.checkBox_legend_label = QtWidgets.QCheckBox('Item Label', self.groupBox_Legend)
+        self.checkBox_legend_label.setChecked(False)
+        self.horizontalLayout_2.addWidget(self.checkBox_legend_label)
+        self.checkBox_legend_ycolumn = QtWidgets.QCheckBox('Y-Column', self.groupBox_Legend)
+        self.checkBox_legend_ycolumn.setChecked(True)
+        self.horizontalLayout_2.addWidget(self.checkBox_legend_ycolumn)
+        self.verticalLayout.addWidget(self.groupBox_Legend)
+        self.formLayout_plotOptions = QtWidgets.QFormLayout()
+        self.label_xlabel = QtWidgets.QLabel('X-Label', self.layoutWidget)
+        self.formLayout_plotOptions.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label_xlabel)
+        self.lineEdit_xlabel = QtWidgets.QLineEdit(self.layoutWidget)
+        self.formLayout_plotOptions.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.lineEdit_xlabel)
+        self.label_ylabel = QtWidgets.QLabel('Y-Label', self.layoutWidget)
+        self.formLayout_plotOptions.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.label_ylabel)
+        self.lineEdit_ylabel = QtWidgets.QLineEdit(self.layoutWidget)
+        self.formLayout_plotOptions.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.lineEdit_ylabel)
+        self.verticalLayout.addLayout(self.formLayout_plotOptions)
+        self.plotWidget = PlotWidget(self.splitter)
+        self.verticalLayout_2.addWidget(self.splitter)
+
     def __init__(self, parent=None):
         super(XYScatter, self).__init__(parent)
-        self.setupUi(self)
+        self.setupUi()
         self.splitter.setStretchFactor(0, 0)
         self.splitter.setStretchFactor(1, 1)
 
