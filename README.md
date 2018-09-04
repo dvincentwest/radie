@@ -35,6 +35,11 @@ print(pow_df.metadata["name"])
 
 vsm_df = rd.load_file("magnetization_v_field.txt")  # VSM measurement
 print(vsm_df.metadata["name"])
+
+vsm_df.savetxt('my_vsm_file.df', overwrite=True)  # save as a csv with metadata
+                                                  # in a commented json block
+vsm_reread = rd.load_file('my_vsm_file.df')  # will read in savetxt output with
+                                             # proper class and metadata info                                                  
 ```
 
 
@@ -78,6 +83,9 @@ run the install script.  This requires pywin32.
     -   StructuredDataFrame - base class, just a pandas DataFrame with some
         restrictions, metadata and templates for more specific
         sub-classes
+    -   Common text file format - This is just a csv file where the metadata
+        attached to the .metadata property is converted to a json object
+        and stored in a commented block at the top.
     -   CSV importer that under some structure assumptions attempts to:
         -   automatically determine delimiter
         -   automatically find the csv data-block

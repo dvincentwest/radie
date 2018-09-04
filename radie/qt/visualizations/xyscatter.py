@@ -66,7 +66,7 @@ class XYScatter(base.Visualization):
     _icon_image = os.path.join(cfg.icon_path, "xyscatter.svg")
 
     def setupUi(self):
-        self.resize(1000, 561)
+        self.resize(1000, 560)
         self.setWindowTitle('DataFrames')
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self)
         self.verticalLayout_2.setContentsMargins(3, 3, 3, 3)

@@ -319,15 +319,16 @@ def load_dftxt(fname):
             dialect = sniffer.sniff(data_sample)
         except:
             err_msg = "\n".join(traceback.format_exception(*sys.exc_info()))
-            raise exceptions.LoaderException("Could not deter")
+            raise exceptions.LoaderException("Could not determine CSV block in datablock")
 
         fid.seek(data_location)
         df = pd.read_csv(fid, sep=dialect.delimiter)
         if not cls.required_columns().issubset(df.columns):
-            raise exceptions.LoaderException("StructuredDataFrame Columns do not match the required columns for the specified "
-                                             "StructuredDataFrame Structure")
-
-        df = cls(df.dropna(axis=("index", "columns"), how="all"), **meta_data)
+            raise exceptions.LoaderException(
+                "StructuredDataFrame Columns do not match the required columns"
+                "for the specified StructuredDataFrame Structure"
+            )
+        df = cls(df.dropna(axis="index", how="all").dropna(axis='columns', how='all'), **meta_data)
         return df
 
 

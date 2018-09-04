@@ -272,8 +272,7 @@ class StructuredDataFrame(pandas.DataFrame):
         return accessors
 
     def savetxt(self, filename, overwrite=False):
-        """save an ascii version of the dataframe, with metadata included in
-            comment lines above the datablock
+        """save an ascii version of the dataframe, with metadata included in comment lines above the datablock
 
         Parameters
         ----------
@@ -285,20 +284,11 @@ class StructuredDataFrame(pandas.DataFrame):
         if not filename.endswith(".df"):
             filename += ".df"
 
-        meta = OrderedDict()
-        meta["file-type"] = "Radie txt version1"
-        meta["class"] = self.__class__.__name__
-        meta.update(self.metadata)
-        meta_block = "# " + json.dumps(meta, indent=2).replace("\n", "\n# ")
-        data_block = self.to_csv(index=None)
-
         if os.path.isfile(filename) and not overwrite is True:
             raise FileExistsError("You must specify overwrite to be True to overwrite the file")
 
         with open(filename, "w") as fid:
-            fid.write(meta_block)
-            fid.write("\n")
-            fid.write(data_block)
+            fid.write(self.serialize())
 
     def serialize(self):
         """return a string representation of the StructuredDataFrame, with metadata
@@ -309,10 +299,14 @@ class StructuredDataFrame(pandas.DataFrame):
         str
 
         """
-        # TODO: define a standard text-format for a StructuredDataFrame
-        # TODO: after text format is defined, modify here to
+        meta = OrderedDict()
+        meta["file-type"] = "Radie txt version1"
+        meta["class"] = self.__class__.__name__
+        meta.update(self.metadata)
+        meta_block = "# " + json.dumps(meta, indent=2).replace("\n", "\n# ")
         data_block = self.to_csv(index=None)
-        return data_block
+
+        return meta_block + '\n' + data_block
 
     @classmethod
     def from_clipboard(cls, *args, **kwargs):
