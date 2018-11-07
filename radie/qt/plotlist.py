@@ -211,13 +211,15 @@ class DFListModel(QtCore.QAbstractItemModel):
         return False
 
     def flags(self, index: QtCore.QModelIndex):
+        if not index.isValid():
+            return QtCore.Qt.ItemIsDropEnabled
+
         col = index.column()
         if col == 0:
             return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable | \
-                   QtCore.Qt.ItemIsDropEnabled | QtCore.Qt.ItemIsDragEnabled | QtCore.Qt.ItemIsUserCheckable
+                   QtCore.Qt.ItemIsDragEnabled | QtCore.Qt.ItemIsUserCheckable
         else:
-            return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable | \
-                   QtCore.Qt.ItemIsDropEnabled
+            return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable
 
     def removeRow(self, row: int, parent: QtCore.QModelIndex=None):
         if not parent:

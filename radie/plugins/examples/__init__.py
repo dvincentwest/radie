@@ -1,9 +1,20 @@
 """convenience testing package to generate example DataFrames from example data"""
 import os
+from collections import OrderedDict
 
+import numpy as np
+
+from radie.structures import StructuredDataFrame
 from ..loaders import vsm_lakeshore, powderdiffraction_rigaku
 
 this_dir = os.path.dirname(__file__)
+
+
+def example_structureddataframe():
+    data = OrderedDict()
+    for key in ('x', 'y', 'z'):
+        data[key] = np.random.rand(100)
+    return StructuredDataFrame(data=data, name="random data")
 
 
 def example_powderdiffraction():

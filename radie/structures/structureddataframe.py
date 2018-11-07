@@ -4,6 +4,7 @@ import typing
 import json
 import os
 
+import numpy as np
 import pandas
 from .. import util
 
@@ -272,7 +273,9 @@ class StructuredDataFrame(pandas.DataFrame):
         return accessors
 
     def savetxt(self, filename, overwrite=False):
-        """save an ascii version of the dataframe, with metadata included in comment lines above the datablock
+        """
+        save an ascii version of the dataframe, with metadata included
+        in comment lines above the datablock
 
         Parameters
         ----------
@@ -284,8 +287,9 @@ class StructuredDataFrame(pandas.DataFrame):
         if not filename.endswith(".df"):
             filename += ".df"
 
-        if os.path.isfile(filename) and not overwrite is True:
-            raise FileExistsError("You must specify overwrite to be True to overwrite the file")
+        if os.path.isfile(filename) and overwrite is not True:
+            raise FileExistsError(
+                "You must specify overwrite to be True to overwrite the file")
 
         with open(filename, "w") as fid:
             fid.write(self.serialize())
@@ -311,7 +315,8 @@ class StructuredDataFrame(pandas.DataFrame):
     @classmethod
     def from_clipboard(cls, *args, **kwargs):
         df = pandas.read_clipboard()
-        # TODO: figure out a clever way to parse required columns, ignore for now for the sake of convenience
+        # TODO: figure out a clever way to parse required columns,
+        # ignore for now for the sake of convenience
         return cls(data=df, *args, **kwargs)
 
     @property
@@ -320,5 +325,5 @@ class StructuredDataFrame(pandas.DataFrame):
 
     def rdplot(self, *args, **kwargs):
         """Subclasses may implement custom plotting functionality"""
-        raise NotImplementedError("only available for specific subclasses of StructuredDataFrame")
-
+        raise NotImplementedError(
+            "only available for specific subclasses of StructuredDataFrame")
